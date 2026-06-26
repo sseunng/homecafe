@@ -591,10 +591,10 @@ export default function AdminView({ onExit }) {
         {activeTab === 'orders' && (
           <div className="order-board">
             
-            {/* COLUMN A: 주문 대기 (Pending) */}
+            {/* COLUMN A: 주문 대기 */}
             <div className="board-column">
               <div className="column-header">
-                <span className="column-title">주문 대기 (Pending)</span>
+                <span className="column-title">주문 대기</span>
                 <span className="column-count">{pendingOrders.length}</span>
               </div>
 
@@ -645,7 +645,7 @@ export default function AdminView({ onExit }) {
             {/* COLUMN B: 제조 중 (Preparing) */}
             <div className="board-column" style={{ borderColor: 'var(--toss-blue-light)' }}>
               <div className="column-header">
-                <span className="column-title" style={{ color: 'var(--toss-blue)' }}>맛있게 만드는 중</span>
+                <span className="column-title" style={{ color: 'var(--toss-blue)' }}>제조중</span>
                 <span className="column-count" style={{ backgroundColor: 'var(--toss-blue-light)', color: 'var(--toss-blue)' }}>{preparingOrders.length}</span>
               </div>
 
@@ -696,11 +696,11 @@ export default function AdminView({ onExit }) {
             {/* COLUMN C: 완료 이력 (Completed History) */}
             <div className="board-column" style={{ opacity: 0.85 }}>
               <div className="column-header">
-                <span className="column-title">완료된 주문 (오늘)</span>
+                <span className="column-title">완료된 주문</span>
                 <span className="column-count">{historyOrders.length}</span>
               </div>
 
-              <div className="order-cards-list" style={{ maxHeight: '250px', overflowY: 'auto' }}>
+              <div className="order-cards-list">
                 {historyOrders.length === 0 ? (
                   <p style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '13px', padding: '16px 0' }}>완료된 이력이 없습니다.</p>
                 ) : (
