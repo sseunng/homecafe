@@ -55,9 +55,6 @@ function MainApp() {
                 {completedOrderAlert.items.map(i => `${i.name} ${i.quantity}잔`).join(', ')}
               </p>
             </div>
-            <button className="btn-primary btn-full" onClick={() => setCompletedOrderAlert(null)}>
-              맛있게 마시기 🥤
-            </button>
           </div>
         </div>
       )}

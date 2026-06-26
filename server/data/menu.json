@@ -1,42 +1,42 @@
 [
   {
     "id": "menu_1",
-    "name": "아메리카노 (Americano)",
+    "name": "아메리카노",
     "description": "깊고 진한 에스프레소에 시원한 물을 더한 깔끔하고 고소한 커피",
     "image": "/uploads/default_americano.png",
-    "category": "커피 (Coffee)",
+    "category": "커피",
     "available": true
   },
   {
     "id": "menu_2",
-    "name": "카페라떼 (Cafe Latte)",
+    "name": "카페라떼",
     "description": "에스프레소의 고소함과 부드러운 우유가 조화롭게 어우러진 라떼",
     "image": "/uploads/default_latte.png",
-    "category": "커피 (Coffee)",
+    "category": "커피",
     "available": true
   },
   {
     "id": "menu_3",
-    "name": "바닐라라떼 (Vanilla Latte)",
+    "name": "바닐라라떼",
     "description": "천연 바닐라 빈 시럽을 넣어 더욱 달콤하고 향긋한 라떼",
     "image": "/uploads/default_vanilla_latte.png",
-    "category": "커피 (Coffee)",
+    "category": "커피",
     "available": true
   },
   {
     "id": "menu_4",
-    "name": "자몽에이드 (Grapefruit Ade)",
+    "name": "자몽에이드",
     "description": "톡 쏘는 탄산수에 수제 자몽 청을 듬뿍 넣어 상큼하고 달콤한 에이드",
     "image": "/uploads/default_grapefruit_ade.png",
-    "category": "논커피 (Non-Coffee)",
+    "category": "논커피",
     "available": true
   },
   {
     "id": "menu_5",
-    "name": "캐모마일 블렌드 (Chamomile Blend)",
+    "name": "캐모마일 블렌드",
     "description": "마음을 차분하게 해주는 은은한 사과 향의 허브 티",
     "image": "/uploads/default_chamomile.png",
-    "category": "티 (Tea)",
+    "category": "티",
     "available": true
   }
 ]

@@ -680,6 +680,24 @@
   font-weight: 700;
   font-size: 14px;
   text-decoration: underline;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.cart-item-remove-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--toss-red);
+  padding: 8px;
+  border-radius: 50%;
+  background-color: var(--toss-red-light);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+}
+
+.cart-item-remove-icon:active {
+  transform: scale(0.9);
 }
 
 /* Checkout / Order tracking page */

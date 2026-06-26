@@ -267,10 +267,10 @@ export default function GuestView({ onAdminEnter }) {
     };
 
     if (directCheckout) {
-      // Direct checkout: create a temp cart and trigger checkout
-      setCart([cartItem]);
+      // Direct checkout: add to cart, close bottom sheet, and open cart view
+      setCart(prev => [...prev, cartItem]);
       closeBottomSheet();
-      handlePlaceOrder([cartItem]);
+      setCurrentView('cart');
     } else {
       // Standard cart add
       setCart(prev => [...prev, cartItem]);
@@ -455,7 +455,7 @@ export default function GuestView({ onAdminEnter }) {
               </div>
             ) : sortedMenuItems.length === 0 ? (
               <div className="empty-state">
-                <div className="empty-title">등록된 음료가 없습니다</div>
+                <div className="empty-title">등록된 메뉴가 없습니다.</div>
               </div>
             ) : (
               <div className="menu-grid">
@@ -546,21 +546,31 @@ export default function GuestView({ onAdminEnter }) {
             <>
               <div className="cart-items-list">
                 {cart.map(item => (
-                  <div key={item.id} className="cart-item">
+                  <div key={item.id} className="cart-item" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                     <div className="cart-item-details">
                       <div className="cart-item-name">{item.name}</div>
                       <div className="cart-item-options">
                         {item.options}
                       </div>
-                      <button className="cart-item-remove" onClick={() => removeCartItem(item.id)}>
-                        삭제
-                      </button>
                     </div>
 
-                    <div className="quantity-controls">
-                      <button className="qty-btn" onClick={() => updateCartQty(item.id, -1)}>-</button>
-                      <span className="qty-number">{item.quantity}</span>
-                      <button className="qty-btn" onClick={() => updateCartQty(item.id, 1)}>+</button>
+                    <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+                      <div className="quantity-controls" style={{ margin: 0 }}>
+                        <button className="qty-btn" onClick={() => updateCartQty(item.id, -1)}>-</button>
+                        <span className="qty-number">{item.quantity}</span>
+                        <button className="qty-btn" onClick={() => updateCartQty(item.id, 1)}>+</button>
+                      </div>
+                      
+                      <button 
+                        className="cart-item-remove-icon" 
+                        onClick={() => removeCartItem(item.id)}
+                        title="삭제"
+                      >
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <polyline points="3 6 5 6 21 6"></polyline>
+                          <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+                        </svg>
+                      </button>
                     </div>
                   </div>
                 ))}
@@ -573,7 +583,7 @@ export default function GuestView({ onAdminEnter }) {
                 </div>
                 <div className="cart-total-row" style={{ fontSize: '14px', fontWeight: '500', color: 'var(--text-secondary)' }}>
                   <span>결제 금액</span>
-                  <span className="cart-free-tag">홈카페는 무료입니다</span>
+                  <span className="cart-free-tag">무료</span>
                 </div>
                 <button className="btn-primary btn-full" onClick={() => handlePlaceOrder()}>
                   주문하기
@@ -615,7 +625,7 @@ export default function GuestView({ onAdminEnter }) {
                   className="btn-primary btn-full" 
                   onClick={() => setCurrentView('menu')}
                 >
-                  다른 음료 구경하러 가기
+                  다른 음료도 살펴보기
                 </button>
 
                 {(activeOrder.status === 'completed' || activeOrder.status === 'cancelled') && (
@@ -684,7 +694,6 @@ export default function GuestView({ onAdminEnter }) {
               </div>
               <div className="item-detail-info">
                 <p className="item-detail-desc">{selectedItem.description || '상세 설명이 등록되지 않았습니다.'}</p>
-                <p style={{ fontSize: '12px', color: 'var(--toss-blue)', fontWeight: 'bold', marginTop: '6px' }}>홈카페 무료</p>
               </div>
             </div>
 

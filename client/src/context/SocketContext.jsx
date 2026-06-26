@@ -85,6 +85,13 @@ export const SocketProvider = ({ children }) => {
       }
     });
 
+    newSocket.on('order_status_updated', (updatedOrder) => {
+      console.log('Order status update received by socket provider:', updatedOrder);
+      if (updatedOrder.status === 'picked_up') {
+        setCompletedOrderAlert(null);
+      }
+    });
+
     setSocket(newSocket);
 
     return () => {

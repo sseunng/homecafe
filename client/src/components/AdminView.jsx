@@ -490,8 +490,8 @@ export default function AdminView({ onExit }) {
   const pendingOrders = orders.filter(o => o.status === 'pending');
   const preparingOrders = orders.filter(o => o.status === 'preparing');
   
-  // Show completed/cancelled orders for today
-  const historyOrders = orders.filter(o => o.status === 'completed' || o.status === 'cancelled');
+  // Show completed/cancelled/picked_up orders for today
+  const historyOrders = orders.filter(o => o.status === 'completed' || o.status === 'cancelled' || o.status === 'picked_up');
 
   // Format date helper
   const formatTime = (isoString) => {
@@ -620,12 +620,20 @@ export default function AdminView({ onExit }) {
                         ))}
                       </div>
 
-                      <div className="order-admin-actions">
+                      <div className="order-admin-actions" style={{ display: 'flex', gap: '8px', width: '100%' }}>
                         <button 
                           className="btn-primary btn-small"
+                          style={{ flex: 2 }}
                           onClick={() => handleUpdateStatus(order.id, 'preparing')}
                         >
-                          주문 수락 (제조 시작)
+                          주문 수락
+                        </button>
+                        <button 
+                          className="btn-danger btn-small"
+                          style={{ flex: 1, backgroundColor: 'var(--toss-red-light)', color: 'var(--toss-red)', boxShadow: 'none' }}
+                          onClick={() => handleUpdateStatus(order.id, 'cancelled')}
+                        >
+                          거절
                         </button>
                       </div>
                     </div>
@@ -697,16 +705,29 @@ export default function AdminView({ onExit }) {
                   <p style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '13px', padding: '16px 0' }}>완료된 이력이 없습니다.</p>
                 ) : (
                   historyOrders.map(order => (
-                    <div key={order.id} className="order-admin-card" style={{ opacity: 0.8 }}>
+                    <div key={order.id} className="order-admin-card" style={{ opacity: order.status === 'picked_up' ? 0.6 : 0.8 }}>
                       <div className="order-admin-header">
                         <span>주문 #{order.orderNumber} {order.nickname ? `(${order.nickname})` : ''}</span>
-                        <span style={{ fontSize: '11px', fontWeight: 'bold', color: order.status === 'completed' ? 'var(--toss-green)' : 'var(--toss-red)' }}>
-                          {order.status === 'completed' ? '제조 완료' : '주문 취소'}
+                        <span style={{ fontSize: '11px', fontWeight: 'bold', color: order.status === 'completed' ? 'var(--toss-green)' : order.status === 'picked_up' ? 'var(--text-secondary)' : 'var(--toss-red)' }}>
+                          {order.status === 'completed' && '제조 완료'}
+                          {order.status === 'picked_up' && '수령 완료'}
+                          {order.status === 'cancelled' && '주문 취소됨'}
                         </span>
                       </div>
                       <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
                         {order.items.map(i => `${i.name} ${i.quantity}잔`).join(', ')}
                       </div>
+                      {order.status === 'completed' && (
+                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
+                          <button
+                            className="btn-primary btn-small"
+                            style={{ padding: '6px 12px', fontSize: '12px', width: 'fit-content' }}
+                            onClick={() => handleUpdateStatus(order.id, 'picked_up')}
+                          >
+                            수령 확인
+                          </button>
+                        </div>
+                      )}
                     </div>
                   ))
                 )}

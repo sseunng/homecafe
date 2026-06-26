@@ -246,8 +246,8 @@ app.post('/api/orders', (req, res) => {
 
 app.patch('/api/orders/:id/status', (req, res) => {
   try {
-    const { status } = req.body; // pending, preparing, completed, cancelled
-    const validStatuses = ['pending', 'preparing', 'completed', 'cancelled'];
+    const { status } = req.body; // pending, preparing, completed, cancelled, picked_up
+    const validStatuses = ['pending', 'preparing', 'completed', 'cancelled', 'picked_up'];
     if (!validStatuses.includes(status)) {
       return res.status(400).json({ error: 'Invalid status value' });
     }
