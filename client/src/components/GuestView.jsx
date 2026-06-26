@@ -47,6 +47,11 @@ export default function GuestView({ onAdminEnter }) {
   const [sweetOption, setSweetOption] = useState('기본'); // 기본, 덜 달게, 시럽 추가
   const [customOptions, setCustomOptions] = useState({});
   
+  // Nickname prompt state
+  const [showNicknameModal, setShowNicknameModal] = useState(false);
+  const [nicknameInput, setNicknameInput] = useState('');
+  const [pendingItemsToOrder, setPendingItemsToOrder] = useState(null);
+  
   // Toast Alert State
   const [toastMessage, setToastMessage] = useState('');
   const [showToast, setShowToast] = useState(false);
@@ -288,9 +293,43 @@ export default function GuestView({ onAdminEnter }) {
     setCart(prev => prev.filter(item => item.id !== id));
   };
 
+  const handleSetNickname = (name) => {
+    const trimmed = name.trim();
+    if (!trimmed) {
+      alert('닉네임을 입력해 주시거나 건너뛰기를 눌러주세요.');
+      return;
+    }
+    sessionStorage.setItem('homecafe_nickname_status', 'set');
+    sessionStorage.setItem('homecafe_nickname', trimmed);
+    setShowNicknameModal(false);
+    if (pendingItemsToOrder) {
+      handlePlaceOrder(pendingItemsToOrder, true);
+      setPendingItemsToOrder(null);
+    }
+  };
+
+  const handleSkipNickname = () => {
+    sessionStorage.setItem('homecafe_nickname_status', 'skipped');
+    setShowNicknameModal(false);
+    if (pendingItemsToOrder) {
+      handlePlaceOrder(pendingItemsToOrder, true);
+      setPendingItemsToOrder(null);
+    }
+  };
+
   // Place Order API call
-  const handlePlaceOrder = async (itemsToOrder = cart) => {
+  const handlePlaceOrder = async (itemsToOrder = cart, bypassNicknameCheck = false) => {
     if (itemsToOrder.length === 0) return;
+
+    // Check session status of nickname
+    const nicknameStatus = sessionStorage.getItem('homecafe_nickname_status');
+    const savedNickname = sessionStorage.getItem('homecafe_nickname') || '';
+
+    if (!nicknameStatus && !bypassNicknameCheck) {
+      setPendingItemsToOrder(itemsToOrder);
+      setShowNicknameModal(true);
+      return;
+    }
     
     try {
       setLoading(true);
@@ -299,6 +338,7 @@ export default function GuestView({ onAdminEnter }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           guestId,
+          nickname: nicknameStatus === 'set' ? savedNickname : '',
           items: itemsToOrder.map(item => ({
             menuId: item.menuId,
             name: item.name,
@@ -550,12 +590,12 @@ export default function GuestView({ onAdminEnter }) {
           {activeOrder ? (
             <>
               <div className="success-checkmark">✓</div>
-              <h2 className="checkout-title">주문이 접수되었습니다!</h2>
+              <h2 className="checkout-title">{activeOrder.nickname ? `${activeOrder.nickname}님, 주문이 접수되었습니다!` : '주문이 접수되었습니다!'}</h2>
               <p style={{ color: 'var(--text-secondary)' }}>주문 현황을 실시간으로 확인하실 수 있습니다.</p>
 
               <div className="order-number-card">
-                <div className="order-num-label">내 주문 번호</div>
-                <div className="order-num-value">#{activeOrder.orderNumber}</div>
+                <div className="order-num-label">{activeOrder.nickname ? '호출 이름' : '내 주문 번호'}</div>
+                <div className="order-num-value">{activeOrder.nickname ? `${activeOrder.nickname}님` : `#${activeOrder.orderNumber}`}</div>
                 
                 {/* Real-time Order Status Badge */}
                 <div className={`status-badge ${
@@ -772,6 +812,44 @@ export default function GuestView({ onAdminEnter }) {
           >
             장바구니 보기
           </button>
+        </div>
+      )}
+
+      {/* 7. NICKNAME PROMPT MODAL */}
+      {showNicknameModal && (
+        <div className="nickname-modal-overlay">
+          <div className="nickname-modal-card">
+            <div className="nickname-modal-title">닉네임으로 불러드릴까요?</div>
+            <div className="nickname-modal-desc">
+              음료가 완성되었을 때 등록한 닉네임으로 안내해 드립니다.
+            </div>
+            <input
+              type="text"
+              className="nickname-input"
+              placeholder="호출받을 이름을 입력하세요"
+              value={nicknameInput}
+              onChange={(e) => setNicknameInput(e.target.value)}
+              maxLength={10}
+            />
+            <div className="nickname-modal-actions">
+              <button 
+                type="button" 
+                className="btn-secondary" 
+                onClick={handleSkipNickname}
+                style={{ padding: '12px 0' }}
+              >
+                건너뛰기
+              </button>
+              <button 
+                type="button" 
+                className="btn-primary" 
+                onClick={() => handleSetNickname(nicknameInput)}
+                style={{ padding: '12px 0' }}
+              >
+                설정하기
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

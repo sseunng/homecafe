@@ -224,12 +224,12 @@ app.get('/api/orders/:id', (req, res) => {
 
 app.post('/api/orders', (req, res) => {
   try {
-    const { guestId, items } = req.body;
+    const { guestId, items, nickname } = req.body;
     if (!guestId || !items || !Array.isArray(items) || items.length === 0) {
       return res.status(400).json({ error: 'guestId and items (array) are required' });
     }
 
-    const newOrder = OrdersStore.create({ guestId, items });
+    const newOrder = OrdersStore.create({ guestId, items, nickname });
 
     // Notify admins of new order
     io.to('admin').emit('new_order', newOrder);
@@ -267,6 +267,7 @@ app.patch('/api/orders/:id/status', (req, res) => {
     if (status === 'completed') {
       io.to(`guest_${updatedOrder.guestId}`).emit('order_completed_alert', {
         orderNumber: updatedOrder.orderNumber,
+        nickname: updatedOrder.nickname,
         items: updatedOrder.items
       });
     }
@@ -274,6 +275,33 @@ app.patch('/api/orders/:id/status', (req, res) => {
     res.json(updatedOrder);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update order status' });
+  }
+});
+
+// 3. System Update API
+app.post('/api/system/update', (req, res) => {
+  try {
+    const { pin } = req.body;
+    const config = ConfigStore.get();
+    if (pin !== config.adminPin) {
+      return res.status(401).json({ error: '인증 비밀번호가 일치하지 않습니다.' });
+    }
+
+    console.log('Triggering system update script asynchronously...');
+    const scriptPath = path.join(__dirname, '..', 'update.sh');
+
+    // Executing the shell script detached
+    const { spawn } = require('child_process');
+    const child = spawn('bash', [scriptPath], {
+      detached: true,
+      stdio: 'ignore'
+    });
+    child.unref();
+
+    res.json({ success: true, message: '시스템 업데이트 스크립트가 실행되었습니다. 잠시 후 새로고침해 주세요.' });
+  } catch (error) {
+    console.error('Update spawn error:', error);
+    res.status(500).json({ error: '시스템 업데이트 실행 중 오류가 발생했습니다.' });
   }
 });
 

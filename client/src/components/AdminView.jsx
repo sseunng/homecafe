@@ -446,6 +446,31 @@ export default function AdminView({ onExit }) {
     }
   };
 
+  const handleSystemUpdate = async () => {
+    const inputPin = prompt('시스템 업데이트를 승인하려면 관리자 비밀번호(PIN)를 입력해 주세요:');
+    if (!inputPin) return;
+
+    try {
+      setLoading(true);
+      const res = await fetch(getApiUrl('/api/system/update'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ pin: inputPin })
+      });
+      
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || '업데이트 요청 실패');
+      }
+      
+      alert(data.message || '업데이트가 시작되었습니다. 약 1분 후 페이지를 새로고침해 주세요.');
+    } catch (e) {
+      alert(`업데이트 실패: ${e.message}`);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   const handleToggleAvailability = async (id, currentAvailable) => {
     try {
       const res = await fetch(getApiUrl(`/api/menu/${id}/availability`), {
@@ -580,7 +605,7 @@ export default function AdminView({ onExit }) {
                   pendingOrders.map(order => (
                     <div key={order.id} className="order-admin-card">
                       <div className="order-admin-header">
-                        <span className="order-admin-num">주문 #{order.orderNumber}</span>
+                        <span className="order-admin-num">주문 #{order.orderNumber} {order.nickname ? `(${order.nickname})` : ''}</span>
                         <span className="order-admin-time">{formatTime(order.createdAt)}</span>
                       </div>
                       
@@ -623,7 +648,7 @@ export default function AdminView({ onExit }) {
                   preparingOrders.map(order => (
                     <div key={order.id} className="order-admin-card" style={{ borderLeft: '4px solid var(--toss-blue)' }}>
                       <div className="order-admin-header">
-                        <span className="order-admin-num">주문 #{order.orderNumber}</span>
+                        <span className="order-admin-num">주문 #{order.orderNumber} {order.nickname ? `(${order.nickname})` : ''}</span>
                         <span className="order-admin-time">{formatTime(order.createdAt)}</span>
                       </div>
 
@@ -674,7 +699,7 @@ export default function AdminView({ onExit }) {
                   historyOrders.map(order => (
                     <div key={order.id} className="order-admin-card" style={{ opacity: 0.8 }}>
                       <div className="order-admin-header">
-                        <span>주문 #{order.orderNumber}</span>
+                        <span>주문 #{order.orderNumber} {order.nickname ? `(${order.nickname})` : ''}</span>
                         <span style={{ fontSize: '11px', fontWeight: 'bold', color: order.status === 'completed' ? 'var(--toss-green)' : 'var(--toss-red)' }}>
                           {order.status === 'completed' ? '제조 완료' : '주문 취소'}
                         </span>
@@ -973,7 +998,10 @@ export default function AdminView({ onExit }) {
         {/* TAB 3: SYSTEM CONFIGURATION */}
         {activeTab === 'system_config' && (
           <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', padding: '16px' }}>
-            <div style={{ fontWeight: '800', fontSize: '16px', marginBottom: '16px', display: 'flex', alignItems: 'center', gap: '6px' }}>시스템 설정</div>
+            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
+              <div style={{ fontWeight: '800', fontSize: '16px' }}>시스템 설정</div>
+              <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>버전 v1.2.0</span>
+            </div>
             
             <form onSubmit={handleSaveConfig} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="form-group">
@@ -1021,6 +1049,22 @@ export default function AdminView({ onExit }) {
                 {loading ? '설정 저장 중...' : '설정 저장하기'}
               </button>
             </form>
+
+            <div style={{ borderTop: '1px solid var(--border-color)', paddingTop: '20px', marginTop: '24px' }}>
+              <div style={{ fontWeight: '700', fontSize: '14px', marginBottom: '8px', color: 'var(--text-secondary)' }}>시스템 업데이트</div>
+              <p style={{ fontSize: '12px', color: 'var(--text-tertiary)', marginBottom: '12px', lineBreak: 'anywhere' }}>
+                GitHub 원격 저장소에서 최신 소스코드를 다운로드하고 도커 환경을 재생성합니다. 업데이트가 완료되면 시스템이 자동으로 재시작되며, 현재 페이지를 새로고침하셔야 합니다.
+              </p>
+              <button 
+                type="button" 
+                className="btn-danger" 
+                style={{ padding: '10px 16px', fontSize: '13px', width: 'fit-content' }}
+                onClick={handleSystemUpdate}
+                disabled={loading}
+              >
+                {loading ? '업데이트 진행 중...' : '시스템 업데이트 실행'}
+              </button>
+            </div>
           </div>
         )}
 

@@ -144,6 +144,7 @@ const OrdersStore = {
       id: orderData.id || `order_${Date.now()}_${Math.random().toString(36).substr(2, 9)}`,
       orderNumber: nextNumber,
       guestId: orderData.guestId,
+      nickname: orderData.nickname || '',
       items: orderData.items, // Array of { menuId, name, quantity, options }
       status: 'pending', // pending, preparing, completed, cancelled
       createdAt: now.toISOString()

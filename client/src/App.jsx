@@ -21,7 +21,9 @@ function MainApp() {
       try {
         const itemNames = completedOrderAlert.items.map(i => `${i.name} ${i.quantity}잔`).join(', ');
         new Notification('☕ 홈카페 음료 제조 완료!', {
-          body: `주문번호 #${completedOrderAlert.orderNumber}번 음료가 나왔습니다: ${itemNames}`,
+          body: completedOrderAlert.nickname 
+            ? `${completedOrderAlert.nickname}님 음료가 나왔습니다: ${itemNames}`
+            : `주문번호 #${completedOrderAlert.orderNumber}번 음료가 나왔습니다: ${itemNames}`,
           icon: '/favicon.ico'
         });
       } catch (e) {
@@ -46,7 +48,7 @@ function MainApp() {
             <div className="pickup-title">음료 준비 완료!</div>
             <div className="pickup-body">
               <p style={{ fontSize: '24px', fontWeight: '900', color: 'var(--toss-blue)', margin: '8px 0 16px 0' }}>
-                주문번호 #{completedOrderAlert.orderNumber}
+                {completedOrderAlert.nickname ? `${completedOrderAlert.nickname}님` : `주문번호 #${completedOrderAlert.orderNumber}`}
               </p>
               <p style={{ fontWeight: '500', marginBottom: '8px' }}>주문하신 음료가 맛있게 제조되었습니다.</p>
               <p style={{ fontSize: '13px', color: 'var(--text-tertiary)' }}>

@@ -8,6 +8,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
 /* Header style - Toss style blurred transparent */
@@ -1199,4 +1200,90 @@
 
 @keyframes spin {
   to { transform: rotate(360deg); }
+}
+
+/* Tablet & Desktop Responsiveness (iPad portrait/landscape support) */
+@media (min-width: 768px) {
+  .app-container {
+    max-width: 1024px; /* Expand view on iPads/Tablets */
+  }
+
+  .menu-grid {
+    grid-template-columns: 1fr 1fr; /* 2 columns for card lists on iPad */
+  }
+
+  .order-board {
+    flex-direction: row; /* Horizontal 3-column dashboard for host */
+    align-items: flex-start;
+  }
+
+  .board-column {
+    flex: 1;
+    min-height: 600px;
+  }
+}
+
+/* Nickname modal styling */
+.nickname-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  animation: fadeIn var(--transition-fast) forwards;
+}
+
+.nickname-modal-card {
+  background-color: var(--bg-primary);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: var(--shadow-lg);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  animation: popIn var(--transition-normal) forwards;
+}
+
+.nickname-modal-title {
+  font-size: 18px;
+  font-weight: 800;
+  text-align: center;
+  color: var(--text-primary);
+}
+
+.nickname-modal-desc {
+  font-size: 14px;
+  color: var(--text-secondary);
+  text-align: center;
+  line-height: 1.4;
+}
+
+.nickname-input {
+  width: 100%;
+  padding: 14px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
+  font-size: 15px;
+  text-align: center;
+  box-sizing: border-box;
+}
+
+.nickname-modal-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 8px;
+}
+
+.nickname-modal-actions button {
+  flex: 1;
 }
