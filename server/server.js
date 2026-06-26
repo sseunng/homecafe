@@ -22,6 +22,14 @@ const io = new Server(server, {
 app.use(cors());
 app.use(express.json());
 
+// Prevent aggressive caching on iOS Safari
+app.use('/api', (req, res, next) => {
+  res.setHeader('Cache-Control', 'no-store, no-cache, must-revalidate, proxy-revalidate');
+  res.setHeader('Pragma', 'no-cache');
+  res.setHeader('Expires', '0');
+  next();
+});
+
 // Set up image upload storage config
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {

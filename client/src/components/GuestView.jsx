@@ -369,10 +369,16 @@ export default function GuestView({ onAdminEnter }) {
     setCurrentView('menu');
   };
 
+  // Helper to clean category name for comparison (stripping emojis/spaces)
+  const cleanCategory = (str) => {
+    if (!str) return '';
+    return str.replace(/[^\w\sㄱ-힣]/g, '').trim();
+  };
+
   // Filtered menu
   const filteredMenu = selectedCategory === '전체'
     ? menu
-    : menu.filter(item => item.category === selectedCategory);
+    : menu.filter(item => cleanCategory(item.category) === cleanCategory(selectedCategory));
 
   // Sort and group menu items if '전체' is selected
   const getSortedMenu = () => {
@@ -380,8 +386,8 @@ export default function GuestView({ onAdminEnter }) {
       return filteredMenu;
     }
     return [...filteredMenu].sort((a, b) => {
-      const indexA = categories.indexOf(a.category);
-      const indexB = categories.indexOf(b.category);
+      const indexA = categories.findIndex(cat => cleanCategory(cat) === cleanCategory(a.category));
+      const indexB = categories.findIndex(cat => cleanCategory(cat) === cleanCategory(b.category));
       if (indexA === -1 && indexB === -1) return 0;
       if (indexA === -1) return 1;
       if (indexB === -1) return -1;
@@ -438,7 +444,7 @@ export default function GuestView({ onAdminEnter }) {
             {categories.map(cat => (
               <button
                 key={cat}
-                className={`category-tab ${selectedCategory === cat ? 'active' : ''}`}
+                className={`category-tab ${cleanCategory(selectedCategory) === cleanCategory(cat) ? 'active' : ''}`}
                 onClick={() => setSelectedCategory(cat)}
               >
                 {cat}
