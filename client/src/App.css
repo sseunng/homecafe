@@ -1305,3 +1305,27 @@
 .nickname-modal-actions button {
   flex: 1;
 }
+
+/* Mobile collapsible completed orders styling */
+.collapse-toggle-icon {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-left: auto;
+  transition: transform var(--transition-fast) ease;
+}
+
+@media (max-width: 767px) {
+  .collapsible-header {
+    cursor: pointer;
+    user-select: none;
+  }
+  .collapsible-header:active {
+    opacity: 0.7;
+  }
+}
+
+@media (min-width: 768px) {
+  .collapse-toggle-icon {
+    display: none;
+  }
+}

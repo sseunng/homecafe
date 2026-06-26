@@ -290,11 +290,21 @@ app.post('/api/system/update', (req, res) => {
     console.log('Triggering system update script asynchronously...');
     const scriptPath = path.join(__dirname, '..', 'update.sh');
 
-    // Executing the shell script detached
+    // Executing the shell script detached and logging to update.log
+    const logPath = path.join(__dirname, 'data', 'update.log');
+    const logFd = fs.openSync(logPath, 'a');
+    fs.writeSync(logFd, `\n--- System Update Triggered at ${new Date().toISOString()} ---\n`);
+
+    try {
+      fs.chmodSync(scriptPath, '755');
+    } catch (chmodErr) {
+      fs.writeSync(logFd, `Warning: Failed to set execute permission on update.sh: ${chmodErr.message}\n`);
+    }
+
     const { spawn } = require('child_process');
     const child = spawn('bash', [scriptPath], {
       detached: true,
-      stdio: 'ignore'
+      stdio: ['ignore', logFd, logFd]
     });
     child.unref();
 
@@ -322,13 +332,14 @@ io.on('connection', (socket) => {
   socket.on('register', (data) => {
     const { guestId, role } = data;
     
-    if (role === 'admin') {
-      socket.join('admin');
-      console.log(`Socket ${socket.id} joined 'admin' room`);
-    } else if (guestId) {
+    if (guestId) {
       const roomName = `guest_${guestId}`;
       socket.join(roomName);
       console.log(`Socket ${socket.id} joined '${roomName}' room`);
+    }
+    if (role === 'admin') {
+      socket.join('admin');
+      console.log(`Socket ${socket.id} joined 'admin' room`);
     }
   });
 

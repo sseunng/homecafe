@@ -172,21 +172,28 @@ const DEFAULT_CATEGORIES = ['커피', '논커피', '티', '디저트'];
 // Categories Store Methods
 const CategoriesStore = {
   getAll: () => {
-    return readJSON(CATEGORIES_FILE, DEFAULT_CATEGORIES);
+    const list = readJSON(CATEGORIES_FILE, DEFAULT_CATEGORIES);
+    const cleaned = list.map(name => name.replace(/[^\w\sㄱ-힣]/g, '').trim());
+    if (JSON.stringify(list) !== JSON.stringify(cleaned)) {
+      writeJSON(CATEGORIES_FILE, cleaned);
+    }
+    return cleaned;
   },
   
   add: (name) => {
-    const list = readJSON(CATEGORIES_FILE, DEFAULT_CATEGORIES);
-    if (!list.includes(name)) {
-      list.push(name);
+    const cleanedName = name.replace(/[^\w\sㄱ-힣]/g, '').trim();
+    const list = CategoriesStore.getAll();
+    if (!list.includes(cleanedName)) {
+      list.push(cleanedName);
       writeJSON(CATEGORIES_FILE, list);
     }
     return list;
   },
   
   delete: (name) => {
-    const list = readJSON(CATEGORIES_FILE, DEFAULT_CATEGORIES);
-    const updated = list.filter(item => item !== name);
+    const cleanedName = name.replace(/[^\w\sㄱ-힣]/g, '').trim();
+    const list = CategoriesStore.getAll();
+    const updated = list.filter(item => item !== cleanedName);
     writeJSON(CATEGORIES_FILE, updated);
     return updated;
   }

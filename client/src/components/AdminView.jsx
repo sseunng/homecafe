@@ -27,6 +27,7 @@ export default function AdminView({ onExit }) {
   const [kioskTitle, setKioskTitle] = useState('');
   const [newPin, setNewPin] = useState('');
   const [confirmPin, setConfirmPin] = useState('');
+  const [isHistoryCollapsed, setIsHistoryCollapsed] = useState(window.innerWidth < 768);
 
   // Form states for menu add
   const [newDrinkName, setNewDrinkName] = useState('');
@@ -48,6 +49,17 @@ export default function AdminView({ onExit }) {
       document.title = kioskTitle;
     }
   }, [kioskTitle]);
+
+  // Expand completed orders automatically on landscape desktop/tablet screens
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setIsHistoryCollapsed(false);
+      }
+    };
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
   // Set role to admin on mount
   useEffect(() => {
@@ -694,44 +706,58 @@ export default function AdminView({ onExit }) {
             </div>
 
             {/* COLUMN C: 완료 이력 (Completed History) */}
-            <div className="board-column" style={{ opacity: 0.85 }}>
-              <div className="column-header">
-                <span className="column-title">완료된 주문</span>
-                <span className="column-count">{historyOrders.length}</span>
+            <div className="board-column completed-column" style={{ opacity: 0.85 }}>
+              <div 
+                className="column-header collapsible-header" 
+                onClick={() => {
+                  if (window.innerWidth < 768) {
+                    setIsHistoryCollapsed(!isHistoryCollapsed);
+                  }
+                }}
+              >
+                <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+                  <span className="column-title">완료된 주문</span>
+                  <span className="column-count">{historyOrders.length}</span>
+                </div>
+                <span className="collapse-toggle-icon">
+                  {isHistoryCollapsed ? '▼' : '▲'}
+                </span>
               </div>
 
-              <div className="order-cards-list">
-                {historyOrders.length === 0 ? (
-                  <p style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '13px', padding: '16px 0' }}>완료된 이력이 없습니다.</p>
-                ) : (
-                  historyOrders.map(order => (
-                    <div key={order.id} className="order-admin-card" style={{ opacity: order.status === 'picked_up' ? 0.6 : 0.8 }}>
-                      <div className="order-admin-header">
-                        <span>주문 #{order.orderNumber} {order.nickname ? `(${order.nickname})` : ''}</span>
-                        <span style={{ fontSize: '11px', fontWeight: 'bold', color: order.status === 'completed' ? 'var(--toss-green)' : order.status === 'picked_up' ? 'var(--text-secondary)' : 'var(--toss-red)' }}>
-                          {order.status === 'completed' && '제조 완료'}
-                          {order.status === 'picked_up' && '수령 완료'}
-                          {order.status === 'cancelled' && '주문 취소됨'}
-                        </span>
-                      </div>
-                      <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
-                        {order.items.map(i => `${i.name} ${i.quantity}잔`).join(', ')}
-                      </div>
-                      {order.status === 'completed' && (
-                        <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
-                          <button
-                            className="btn-primary btn-small"
-                            style={{ padding: '6px 12px', fontSize: '12px', width: 'fit-content' }}
-                            onClick={() => handleUpdateStatus(order.id, 'picked_up')}
-                          >
-                            수령 확인
-                          </button>
+              {!isHistoryCollapsed && (
+                <div className="order-cards-list">
+                  {historyOrders.length === 0 ? (
+                    <p style={{ textAlign: 'center', color: 'var(--text-tertiary)', fontSize: '13px', padding: '16px 0' }}>완료된 이력이 없습니다.</p>
+                  ) : (
+                    historyOrders.map(order => (
+                      <div key={order.id} className="order-admin-card" style={{ opacity: order.status === 'picked_up' ? 0.6 : 0.8 }}>
+                        <div className="order-admin-header">
+                          <span>주문 #{order.orderNumber} {order.nickname ? `(${order.nickname})` : ''}</span>
+                          <span style={{ fontSize: '11px', fontWeight: 'bold', color: order.status === 'completed' ? 'var(--toss-green)' : order.status === 'picked_up' ? 'var(--text-secondary)' : 'var(--toss-red)' }}>
+                            {order.status === 'completed' && '제조 완료'}
+                            {order.status === 'picked_up' && '수령 완료'}
+                            {order.status === 'cancelled' && '주문 취소됨'}
+                          </span>
                         </div>
-                      )}
-                    </div>
-                  ))
-                )}
-              </div>
+                        <div style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>
+                          {order.items.map(i => `${i.name} ${i.quantity}잔`).join(', ')}
+                        </div>
+                        {order.status === 'completed' && (
+                          <div style={{ display: 'flex', justifyContent: 'flex-end', marginTop: '8px' }}>
+                            <button
+                              className="btn-primary btn-small"
+                              style={{ padding: '6px 12px', fontSize: '12px', width: 'fit-content' }}
+                              onClick={() => handleUpdateStatus(order.id, 'picked_up')}
+                            >
+                              수령 확인
+                            </button>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
             </div>
 
           </div>

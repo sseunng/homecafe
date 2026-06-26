@@ -91,8 +91,8 @@ export default function GuestView({ onAdminEnter }) {
           })
           .then(serverOrder => {
             if (serverOrder) {
-              if (serverOrder.status === 'completed' || serverOrder.status === 'cancelled') {
-                // Already done or cancelled! Clear it.
+              if (serverOrder.status === 'completed' || serverOrder.status === 'cancelled' || serverOrder.status === 'picked_up') {
+                // Already done, picked up or cancelled! Clear it.
                 localStorage.removeItem('homecafe_kiosk_active_order');
                 setActiveOrder(null);
                 setCurrentView('menu');
@@ -138,8 +138,8 @@ export default function GuestView({ onAdminEnter }) {
         setActiveOrder(updatedOrder);
         localStorage.setItem('homecafe_kiosk_active_order', JSON.stringify(updatedOrder));
         
-        // If completed or cancelled, remove from local persistence after a delay or keep it
-        if (updatedOrder.status === 'completed' || updatedOrder.status === 'cancelled') {
+        // If completed, cancelled, or picked up, remove from local persistence after a delay or keep it
+        if (updatedOrder.status === 'completed' || updatedOrder.status === 'cancelled' || updatedOrder.status === 'picked_up') {
           // Clear active order so they can place a new one later
           localStorage.removeItem('homecafe_kiosk_active_order');
         }
@@ -614,7 +614,7 @@ export default function GuestView({ onAdminEnter }) {
                   activeOrder.status === 'completed' ? 'status-completed' : 'status-cancelled'
                 }`}>
                   {activeOrder.status === 'pending' && '주문 대기 중'}
-                  {activeOrder.status === 'preparing' && '맛있게 만드는 중'}
+                  {activeOrder.status === 'preparing' && '제조중'}
                   {activeOrder.status === 'completed' && '제조 완료'}
                   {activeOrder.status === 'cancelled' && '주문 취소됨'}
                 </div>
