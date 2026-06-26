@@ -1,0 +1,8 @@
+
+--- System Update Triggered at 2026-06-26T15:45:14.328Z ---
+
+--- System Update Triggered at 2026-06-26T15:45:27.175Z ---
+=============================================
+   [1/3] 기존 도커 컨테이너 중지 (Down)
+=============================================
+/Users/choeseunghyeong/Desktop/kiosk/update.sh: line 12: docker: command not found
