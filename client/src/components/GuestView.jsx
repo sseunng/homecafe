@@ -369,10 +369,16 @@ export default function GuestView({ onAdminEnter }) {
     setCurrentView('menu');
   };
 
-  // Helper to clean category name for comparison (stripping emojis/spaces)
+  // Helper to clean category name for comparison (stripping emojis/spaces/English suffixes)
   const cleanCategory = (str) => {
     if (!str) return '';
-    return str.replace(/[^\w\sㄱ-힣]/g, '').trim();
+    // Extract only Korean characters (Hangul) if present
+    const koreanMatch = str.match(/[ㄱ-힣]+/g);
+    if (koreanMatch) {
+      return koreanMatch.join('');
+    }
+    // Fallback for English-only categories: strip symbols, spaces, lowercase
+    return str.replace(/[^\w]/g, '').toLowerCase();
   };
 
   // Filtered menu
