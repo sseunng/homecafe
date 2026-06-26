@@ -1,0 +1,17 @@
+[
+  {
+    "id": "order_1782140579002_hjy2twckq",
+    "orderNumber": 1,
+    "guestId": "test_guest",
+    "items": [
+      {
+        "menuId": "menu_1",
+        "name": "아메리카노",
+        "quantity": 2,
+        "options": "Ice, 기본"
+      }
+    ],
+    "status": "pending",
+    "createdAt": "2026-06-22T15:02:59.001Z"
+  }
+]

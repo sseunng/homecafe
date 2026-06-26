@@ -1,0 +1,17 @@
+{
+  "name": "homecafe-kiosk",
+  "version": "1.0.0",
+  "description": "Home Cafe Kiosk Web App",
+  "main": "server/server.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev --prefix client\" \"nodemon server/server.js\"",
+    "start": "node server/server.js",
+    "build:client": "npm run build --prefix client",
+    "postinstall": "npm install --prefix client && npm install --prefix server",
+    "build": "npm run build:client"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "nodemon": "^3.1.0"
+  }
+}

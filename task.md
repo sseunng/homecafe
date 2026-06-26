@@ -1,0 +1,22 @@
+# Task List - Home Cafe Kiosk Development
+
+- [x] **Phase 1: Project Root & Script Initialization**
+  - [x] Create root `package.json` for running frontend and backend concurrently.
+  - [x] Install concurrently and other dev dependencies in root.
+- [x] **Phase 2: Backend Implementation (Express & WebSockets)**
+  - [x] Set up `server/package.json` with dependencies.
+  - [x] Create data storage manager `server/data_store.js` using file-based persistence.
+  - [x] Write `server/server.js` with Socket.io configuration and order workflow APIs.
+  - [x] Create static public directories for file uploads.
+- [x] **Phase 3: Frontend Implementation (React & Vite & CSS)**
+  - [x] Scaffold `client` Vite/React application.
+  - [x] Install client-side dependencies (`socket.io-client`).
+  - [x] Write Toss Order design styling in `client/src/App.css` (modern HSL palette, transitions, custom buttons).
+  - [x] Implement `client/src/context/SocketContext.jsx` for socket state management.
+  - [x] Write Guest View `client/src/components/GuestView.jsx` with cart, bottom sheets, order status.
+  - [x] Write Admin View `client/src/components/AdminView.jsx` with PIN lock, status transition controls, menu editor.
+  - [x] Connect components in `client/src/App.jsx`.
+- [x] **Phase 4: Monorepo Integration & Verification**
+  - [x] Test client-server communication locally.
+  - [x] Verify image uploads and real-time socket events.
+  - [x] Prepare build pipeline and document deployment steps.
