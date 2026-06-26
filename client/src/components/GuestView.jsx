@@ -55,6 +55,13 @@ export default function GuestView({ onAdminEnter }) {
   const [logoClickCount, setLogoClickCount] = useState(0);
   const [lastLogoClickTime, setLastLogoClickTime] = useState(0);
 
+  // Sync document title with configured kiosk title
+  useEffect(() => {
+    if (kioskTitle) {
+      document.title = kioskTitle;
+    }
+  }, [kioskTitle]);
+
   // Fetch menu on load
   useEffect(() => {
     fetchMenu();

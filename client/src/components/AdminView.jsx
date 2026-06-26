@@ -42,6 +42,13 @@ export default function AdminView({ onExit }) {
   const [customOptType, setCustomOptType] = useState('select'); // select, count
   const [customOptChoices, setCustomOptChoices] = useState('');
 
+  // Sync document title with configured kiosk title
+  useEffect(() => {
+    if (kioskTitle) {
+      document.title = kioskTitle;
+    }
+  }, [kioskTitle]);
+
   // Set role to admin on mount
   useEffect(() => {
     if (isAuthenticated) {

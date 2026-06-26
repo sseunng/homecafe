@@ -1051,8 +1051,10 @@
 }
 
 .form-control {
+  width: 100%;
   padding: 12px;
   border-radius: var(--radius-sm);
+  box-sizing: border-box;
 }
 
 /* Image select area style */
