@@ -296,7 +296,7 @@ app.post('/api/system/update', (req, res) => {
     }
 
     console.log('Triggering system update script asynchronously...');
-    const scriptPath = path.join(__dirname, '~/homecafe/update.sh');
+    const scriptPath = path.join('~/homecafe/update.sh');
     const logPath = path.join(__dirname, 'data', 'update.log');
 
     // Appending a start marker safely via synchronous file operation
