@@ -297,7 +297,13 @@ app.post('/api/system/update', (req, res) => {
 
     console.log('Triggering system update script asynchronously...');
     const os = require('os');
-    const scriptPath = path.join(os.homedir(), 'homecafe', 'update.sh');
+    // Normalize path by handling dot and tilde (~) prefixes
+    let inputPath = './~/homecafe/update.sh';
+    if (inputPath.includes('~')) {
+      inputPath = inputPath.replace('~', os.homedir());
+    }
+    const resolvedPath = inputPath.replace(/^\.\//, '');
+    const scriptPath = path.resolve(resolvedPath);
     const logPath = path.join(__dirname, 'data', 'update.log');
 
     // Appending a start marker safely via synchronous file operation
@@ -305,6 +311,17 @@ app.post('/api/system/update', (req, res) => {
       fs.appendFileSync(logPath, `\n--- System Update Triggered at ${new Date().toISOString()} ---\n`);
     } catch (e) {
       console.warn('Failed to write to update.log:', e);
+    }
+
+    // Explicit check for script existence to provide helpful logs if running inside isolated Docker containers
+    if (!fs.existsSync(scriptPath)) {
+      const errMsg = `Error: 스크립트 파일을 찾을 수 없습니다. 경로: ${scriptPath}`;
+      const hintMsg = `힌트: 도커(Docker) 컨테이너 내부에서 서버가 구동 중인 경우, 호스트의 절대경로(${scriptPath})는 컨테이너에서 접근할 수 없습니다.\n` +
+                      `이럴 때는 호스트에서 직접 Node.js 프로세스(PM2 등)를 구동하시거나, docker-compose.yml 볼륨 마운트에 해당 스크립트 폴더 매핑이 필요합니다.\n`;
+      try {
+        fs.appendFileSync(logPath, `${errMsg}\n${hintMsg}\n`);
+      } catch (e) {}
+      return res.status(404).json({ error: errMsg });
     }
 
     try {
