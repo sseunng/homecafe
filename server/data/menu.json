@@ -343,5 +343,33 @@
       }
     ],
     "available": true
+  },
+  {
+    "id": "menu_1782798930342",
+    "name": "카페 아메리카노",
+    "description": "진한 에스프레소에 정수물을 더한 깊이와 풍미가 살아있는 커피",
+    "category": "커피",
+    "image": "/uploads/menu-1782798930324-899987477.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798918017_vkw0c",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798921097_u9v10",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      }
+    ],
+    "available": true
   }
 ]
