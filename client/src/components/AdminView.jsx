@@ -1142,11 +1142,11 @@ export default function AdminView({ onExit }) {
                   </div>
 
                   {/* Reorder Buttons (▲/▼) */}
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', marginLeft: '12px' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px', marginLeft: '12px' }}>
                     <button
                       type="button"
                       className="btn-secondary"
-                      style={{ padding: '2px 6px', fontSize: '10px', borderRadius: '4px', cursor: 'pointer', lineHeight: '1' }}
+                      style={{ padding: '4px 8px', fontSize: '11px', borderRadius: '4px', cursor: 'pointer', lineHeight: '1' }}
                       onClick={() => moveMenuItem(item.id, 'up')}
                       title="위로 이동"
                     >
@@ -1155,7 +1155,7 @@ export default function AdminView({ onExit }) {
                     <button
                       type="button"
                       className="btn-secondary"
-                      style={{ padding: '2px 6px', fontSize: '10px', borderRadius: '4px', cursor: 'pointer', lineHeight: '1' }}
+                      style={{ padding: '4px 8px', fontSize: '11px', borderRadius: '4px', cursor: 'pointer', lineHeight: '1' }}
                       onClick={() => moveMenuItem(item.id, 'down')}
                       title="아래로 이동"
                     >
