@@ -249,7 +249,7 @@ export default function AdminView({ onExit }) {
   const handleDeleteCategory = async (name) => {
     if (!confirm(`정말로 '${name}' 카테고리를 삭제하시겠습니까?`)) return;
     try {
-      const res = await fetch(getApiUrl(`/api/categories/${encodeURIComponent(name)}`), {
+      const res = await fetch(getApiUrl(`/api/categories?name=${encodeURIComponent(name)}`), {
         method: 'DELETE'
       });
       const data = await res.json();

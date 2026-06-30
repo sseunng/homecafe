@@ -186,7 +186,7 @@ const DEFAULT_CATEGORIES = ['커피', '논커피', '티', '디저트'];
 const CategoriesStore = {
   getAll: () => {
     const list = readJSON(CATEGORIES_FILE, DEFAULT_CATEGORIES);
-    const cleaned = list.map(name => name.replace(/[^\w\sㄱ-힣]/g, '').trim());
+    const cleaned = list.map(name => name.replace(/[^\w\sㄱ-힣\/&,\-]/g, '').trim());
     if (JSON.stringify(list) !== JSON.stringify(cleaned)) {
       writeJSON(CATEGORIES_FILE, cleaned);
     }
@@ -194,7 +194,7 @@ const CategoriesStore = {
   },
   
   add: (name) => {
-    const cleanedName = name.replace(/[^\w\sㄱ-힣]/g, '').trim();
+    const cleanedName = name.replace(/[^\w\sㄱ-힣\/&,\-]/g, '').trim();
     const list = CategoriesStore.getAll();
     if (!list.includes(cleanedName)) {
       list.push(cleanedName);
@@ -204,7 +204,7 @@ const CategoriesStore = {
   },
   
   delete: (name) => {
-    const cleanedName = name.replace(/[^\w\sㄱ-힣]/g, '').trim();
+    const cleanedName = name.replace(/[^\w\sㄱ-힣\/&,\-]/g, '').trim();
     const list = CategoriesStore.getAll();
     const updated = list.filter(item => item !== cleanedName);
     writeJSON(CATEGORIES_FILE, updated);
@@ -212,7 +212,7 @@ const CategoriesStore = {
   },
 
   reorder: (orderedList) => {
-    const cleaned = orderedList.map(name => name.replace(/[^\w\sㄱ-힣]/g, '').trim());
+    const cleaned = orderedList.map(name => name.replace(/[^\w\sㄱ-힣\/&,\-]/g, '').trim());
     writeJSON(CATEGORIES_FILE, cleaned);
     return cleaned;
   }

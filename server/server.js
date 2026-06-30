@@ -168,9 +168,12 @@ app.post('/api/categories', (req, res) => {
   }
 });
 
-app.delete('/api/categories/:name', (req, res) => {
+app.delete('/api/categories', (req, res) => {
   try {
-    const name = req.params.name;
+    const name = req.query.name;
+    if (!name) {
+      return res.status(400).json({ error: 'Category name is required' });
+    }
 
     // Check if there are any menu items referring to this category
     const menuItems = MenuStore.getAll();
