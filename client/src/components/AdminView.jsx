@@ -476,29 +476,43 @@ export default function AdminView({ onExit }) {
     }
   };
 
-  const handleSystemUpdate = async () => {
-    const inputPin = prompt('시스템 업데이트를 승인하려면 관리자 비밀번호(PIN)를 입력해 주세요:');
-    if (!inputPin) return;
-
-    try {
-      setLoading(true);
-      const res = await fetch(getApiUrl('/api/system/update'), {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ pin: inputPin })
-      });
-
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.error || '업데이트 요청 실패');
+  const handleUpdatePinKeyPress = async (num) => {
+    setUpdatePinError(false);
+    if (updatePin.length < 4) {
+      const nextPin = updatePin + num;
+      setUpdatePin(nextPin);
+      if (nextPin.length === 4) {
+        try {
+          setLoading(true);
+          const res = await fetch(getApiUrl('/api/system/update'), {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ pin: nextPin })
+          });
+          
+          const data = await res.json();
+          if (!res.ok) {
+            throw new Error(data.error || '업데이트 요청 실패');
+          }
+          
+          alert(data.message || '업데이트가 시작되었습니다. 약 1분 후 페이지를 새로고침해 주세요.');
+          setShowUpdatePinModal(false);
+          setUpdatePin('');
+        } catch (e) {
+          setUpdatePinError(true);
+          setUpdatePin('');
+          alert(`업데이트 실패: ${e.message}`);
+        } finally {
+          setLoading(false);
+        }
       }
-
-      alert(data.message || '업데이트가 시작되었습니다. 약 1분 후 페이지를 새로고침해 주세요.');
-    } catch (e) {
-      alert(`업데이트 실패: ${e.message}`);
-    } finally {
-      setLoading(false);
     }
+  };
+
+  const handleSystemUpdate = () => {
+    setShowUpdatePinModal(true);
+    setUpdatePin('');
+    setUpdatePinError(false);
   };
 
   const handleToggleAvailability = async (id, currentAvailable) => {
@@ -1129,6 +1143,39 @@ export default function AdminView({ onExit }) {
               >
                 {loading ? '업데이트 진행 중...' : '시스템 업데이트 실행'}
               </button>
+            </div>
+          </div>
+        )}
+
+        {/* System Update PIN Modal Overlay */}
+        {showUpdatePinModal && (
+          <div className="nickname-modal-overlay" style={{ zIndex: 6000 }}>
+            <div className="nickname-modal-card" style={{ maxWidth: '320px' }}>
+              <div className="nickname-modal-title">업데이트 PIN 입력</div>
+              <p style={{ color: updatePinError ? 'var(--toss-red)' : 'var(--text-secondary)', fontSize: '13px', margin: '4px 0 16px 0' }}>
+                {updatePinError ? '비밀번호가 올바르지 않습니다.' : '관리자 4자리 암호를 입력하세요.'}
+              </p>
+              
+              <div className="pin-dots" style={{ marginBottom: '24px' }}>
+                {[...Array(4)].map((_, i) => (
+                  <div 
+                    key={i} 
+                    className={`pin-dot ${i < updatePin.length ? 'active' : ''}`}
+                    style={{ borderColor: updatePinError ? 'var(--toss-red)' : 'var(--border-color)' }}
+                  />
+                ))}
+              </div>
+
+              <div className="pin-keypad" style={{ gap: '8px', gridTemplateColumns: 'repeat(3, 1fr)', width: '100%', justifyItems: 'center' }}>
+                {[1, 2, 3, 4, 5, 6, 7, 8, 9].map(num => (
+                  <button key={num} type="button" className="pin-key" style={{ width: '60px', height: '60px', fontSize: '20px' }} onClick={() => handleUpdatePinKeyPress(num)}>
+                    {num}
+                  </button>
+                ))}
+                <button type="button" className="pin-key pin-key-clear" style={{ width: '60px', height: '60px', fontSize: '14px' }} onClick={() => setUpdatePin('')}>초기화</button>
+                <button type="button" className="pin-key" style={{ width: '60px', height: '60px', fontSize: '20px' }} onClick={() => handleUpdatePinKeyPress(0)}>0</button>
+                <button type="button" className="pin-key pin-key-clear" style={{ width: '60px', height: '60px', fontSize: '14px', backgroundColor: 'var(--bg-tertiary)', color: 'var(--text-primary)' }} onClick={() => setShowUpdatePinModal(false)}>취소</button>
+              </div>
             </div>
           </div>
         )}
