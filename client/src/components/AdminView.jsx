@@ -252,14 +252,16 @@ export default function AdminView({ onExit }) {
       const res = await fetch(getApiUrl(`/api/categories/${encodeURIComponent(name)}`), {
         method: 'DELETE'
       });
-      if (!res.ok) throw new Error('Delete category failed');
       const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.error || '카테고리 삭제에 실패했습니다.');
+      }
       setCategories(data.categories);
       if (newDrinkCategory === name && data.categories.length > 0) {
         setNewDrinkCategory(data.categories[0]);
       }
     } catch (e) {
-      alert('카테고리 삭제에 실패했습니다.');
+      alert(e.message);
     }
   };
 

@@ -171,6 +171,18 @@ app.post('/api/categories', (req, res) => {
 app.delete('/api/categories/:name', (req, res) => {
   try {
     const name = req.params.name;
+
+    // Check if there are any menu items referring to this category
+    const menuItems = MenuStore.getAll();
+    const boundItems = menuItems.filter(item => item.category === name);
+    if (boundItems.length > 0) {
+      const itemNames = boundItems.map(i => i.name).slice(0, 2).join(', ');
+      const restCount = boundItems.length > 2 ? ` 외 ${boundItems.length - 2}개` : '';
+      return res.status(400).json({ 
+        error: `해당 카테고리에 등록된 메뉴(${itemNames}${restCount})가 존재하여 삭제할 수 없습니다. 메뉴의 카테고리를 먼저 변경하거나 삭제해 주세요.` 
+      });
+    }
+
     const updated = CategoriesStore.delete(name);
     io.emit('categories_updated', updated);
     res.json({ success: true, categories: updated });
