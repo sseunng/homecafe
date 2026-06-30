@@ -1084,7 +1084,7 @@ export default function AdminView({ onExit }) {
           <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', padding: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div style={{ fontWeight: '800', fontSize: '16px' }}>시스템 설정</div>
-              <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>버전 v1.3.0</span>
+              <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>버전 v1.3.1</span>
             </div>
 
             <form onSubmit={handleSaveConfig} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
