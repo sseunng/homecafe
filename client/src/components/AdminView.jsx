@@ -494,18 +494,23 @@ export default function AdminView({ onExit }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pin: nextPin })
           });
-
+          
           const data = await res.json();
           if (!res.ok) {
+            // Set update PIN error only on 401 Unauthorized password mismatches
+            if (res.status === 401) {
+              setUpdatePinError(true);
+            } else {
+              setUpdatePinError(false);
+            }
+            setUpdatePin('');
             throw new Error(data.error || '업데이트 요청 실패');
           }
-
+          
           alert(data.message || '업데이트가 시작되었습니다. 약 1분 후 페이지를 새로고침해 주세요.');
           setShowUpdatePinModal(false);
           setUpdatePin('');
         } catch (e) {
-          setUpdatePinError(true);
-          setUpdatePin('');
           alert(`업데이트 실패: ${e.message}`);
         } finally {
           setLoading(false);

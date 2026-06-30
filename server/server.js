@@ -297,13 +297,27 @@ app.post('/api/system/update', (req, res) => {
 
     console.log('Triggering system update script asynchronously...');
     const os = require('os');
-    // Normalize path by handling dot and tilde (~) prefixes
+    let scriptPath = '';
+    
+    // 1st Preference: Custom path normalized
     let inputPath = './~/homecafe/update.sh';
     if (inputPath.includes('~')) {
       inputPath = inputPath.replace('~', os.homedir());
     }
     const resolvedPath = inputPath.replace(/^\.\//, '');
-    const scriptPath = path.resolve(resolvedPath);
+    const firstPath = path.resolve(resolvedPath);
+
+    // 2nd Preference (Fallback): Root folder of active project directory (e.g. /app/update.sh in docker container)
+    const secondPath = path.join(__dirname, '..', 'update.sh');
+
+    if (fs.existsSync(firstPath)) {
+      scriptPath = firstPath;
+    } else if (fs.existsSync(secondPath)) {
+      scriptPath = secondPath;
+    } else {
+      scriptPath = firstPath; // Fallback to first path to report in the error log
+    }
+
     const logPath = path.join(__dirname, 'data', 'update.log');
 
     // Appending a start marker safely via synchronous file operation
