@@ -7,9 +7,19 @@ const getApiUrl = (path) => {
   return `${baseUrl}${path}`;
 };
 
+const getInitialOptions = () => [
+  {
+    id: `opt_temp_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+    name: '온도',
+    type: 'select',
+    choices: ['핫', '아이스'],
+    default: '핫'
+  }
+];
+
 export default function AdminView({ onExit }) {
   const { socket, registerRole } = useSocket();
-  
+
   // Security PIN state
   const [pin, setPin] = useState('');
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -38,7 +48,7 @@ export default function AdminView({ onExit }) {
   const fileInputRef = useRef(null);
 
   // Custom Options state inside form
-  const [drinkOptions, setDrinkOptions] = useState([]);
+  const [drinkOptions, setDrinkOptions] = useState(getInitialOptions());
   const [customOptName, setCustomOptName] = useState('');
   const [customOptType, setCustomOptType] = useState('select'); // select, count
   const [customOptChoices, setCustomOptChoices] = useState('');
@@ -179,7 +189,7 @@ export default function AdminView({ onExit }) {
   const handleSaveConfig = async (e) => {
     e.preventDefault();
     const updateData = { kioskTitle };
-    
+
     if (newPin.trim()) {
       if (newPin.trim().length !== 4 || isNaN(newPin.trim())) {
         alert('비밀번호는 숫자 4자리여야 합니다.');
@@ -250,21 +260,29 @@ export default function AdminView({ onExit }) {
 
   const addPresetOption = (presetName) => {
     let newOpt;
-    if (presetName === '샷 추가') {
+    if (presetName === '온도') {
       newOpt = {
         id: `opt_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
-        name: '샷 추가',
+        name: '온도',
+        type: 'select',
+        choices: ['핫', '아이스'],
+        default: '핫'
+      };
+    } else if (presetName === '샷') {
+      newOpt = {
+        id: `opt_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
+        name: '샷',
         type: 'count',
-        min: 0,
+        min: 1,
         max: 4,
-        default: 0
+        default: 1
       };
     } else if (presetName === '얼음 양') {
       newOpt = {
         id: `opt_${Date.now()}_${Math.random().toString(36).substr(2, 5)}`,
         name: '얼음 양',
         type: 'select',
-        choices: ['보통', '적게', '많이', '없음'],
+        choices: ['보통', '적게', '많이'],
         default: '보통'
       };
     } else if (presetName === '당도 선택') {
@@ -299,7 +317,7 @@ export default function AdminView({ onExit }) {
       alert('옵션명을 입력해 주세요.');
       return;
     }
-    
+
     let choices = [];
     if (customOptType === 'select') {
       if (!customOptChoices.trim()) {
@@ -427,15 +445,15 @@ export default function AdminView({ onExit }) {
       });
 
       if (!res.ok) throw new Error('Add menu failed');
-      
+
       // Reset form
       setNewDrinkName('');
       setNewDrinkDesc('');
-      setDrinkOptions([]);
+      setDrinkOptions(getInitialOptions());
       setSelectedImage(null);
       setImagePreview(null);
       if (fileInputRef.current) fileInputRef.current.value = '';
-      
+
       alert('신규 음료가 등록되었습니다!');
       fetchMenu();
     } catch (e) {
@@ -448,7 +466,7 @@ export default function AdminView({ onExit }) {
 
   const handleDeleteMenuItem = async (id) => {
     if (!confirm('정말로 이 메뉴를 완전히 삭제하시겠습니까?')) return;
-    
+
     try {
       const res = await fetch(getApiUrl(`/api/menu/${id}`), { method: 'DELETE' });
       if (!res.ok) throw new Error('Delete failed');
@@ -469,12 +487,12 @@ export default function AdminView({ onExit }) {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ pin: inputPin })
       });
-      
+
       const data = await res.json();
       if (!res.ok) {
         throw new Error(data.error || '업데이트 요청 실패');
       }
-      
+
       alert(data.message || '업데이트가 시작되었습니다. 약 1분 후 페이지를 새로고침해 주세요.');
     } catch (e) {
       alert(`업데이트 실패: ${e.message}`);
@@ -501,7 +519,7 @@ export default function AdminView({ onExit }) {
   // Separate orders by status
   const pendingOrders = orders.filter(o => o.status === 'pending');
   const preparingOrders = orders.filter(o => o.status === 'preparing');
-  
+
   // Show completed/cancelled/picked_up orders for today
   const historyOrders = orders.filter(o => o.status === 'completed' || o.status === 'cancelled' || o.status === 'picked_up');
 
@@ -517,14 +535,14 @@ export default function AdminView({ onExit }) {
   if (!isAuthenticated) {
     return (
       <div className="admin-lock-screen">
-        <button 
-          className="header-back-btn" 
+        <button
+          className="header-back-btn"
           style={{ position: 'absolute', top: '20px', left: '20px' }}
           onClick={onExit}
         >
           ←
         </button>
-        
+
         <div style={{ textAlign: 'center', marginBottom: '24px' }}>
           <div className="pin-title">관리자 암호 입력</div>
           <p style={{ color: pinError ? 'var(--toss-red)' : 'var(--text-secondary)', fontSize: '14px', fontWeight: pinError ? 'bold' : 'normal' }}>
@@ -534,8 +552,8 @@ export default function AdminView({ onExit }) {
 
         <div className="pin-dots">
           {[...Array(4)].map((_, i) => (
-            <div 
-              key={i} 
+            <div
+              key={i}
               className={`pin-dot ${i < pin.length ? 'active' : ''}`}
               style={{ borderColor: pinError ? 'var(--toss-red)' : 'var(--border-color)' }}
             />
@@ -563,8 +581,8 @@ export default function AdminView({ onExit }) {
         <div className="header-title-container">
           <span className="header-title">Host Dashboard</span>
         </div>
-        <button 
-          className="btn-secondary" 
+        <button
+          className="btn-secondary"
           style={{ padding: '8px 16px', fontSize: '13px', borderRadius: '30px', flex: 'none', width: 'fit-content' }}
           onClick={() => {
             registerRole('guest'); // Reset back to guest socket mapping
@@ -577,19 +595,19 @@ export default function AdminView({ onExit }) {
 
       {/* Navigation tabs between Order tracking, Menu editing, and System configuration */}
       <nav className="admin-nav">
-        <button 
+        <button
           className={`admin-nav-item ${activeTab === 'orders' ? 'active' : ''}`}
           onClick={() => setActiveTab('orders')}
         >
           실시간 주문 현황 ({pendingOrders.length + preparingOrders.length})
         </button>
-        <button 
+        <button
           className={`admin-nav-item ${activeTab === 'menu_mgmt' ? 'active' : ''}`}
           onClick={() => setActiveTab('menu_mgmt')}
         >
           메뉴 관리
         </button>
-        <button 
+        <button
           className={`admin-nav-item ${activeTab === 'system_config' ? 'active' : ''}`}
           onClick={() => setActiveTab('system_config')}
         >
@@ -598,11 +616,11 @@ export default function AdminView({ onExit }) {
       </nav>
 
       <div className="admin-content">
-        
+
         {/* TAB 1: REAL-TIME ORDERS BOARD */}
         {activeTab === 'orders' && (
           <div className="order-board">
-            
+
             {/* COLUMN A: 주문 대기 */}
             <div className="board-column">
               <div className="column-header">
@@ -620,7 +638,7 @@ export default function AdminView({ onExit }) {
                         <span className="order-admin-num">주문 #{order.orderNumber} {order.nickname ? `(${order.nickname})` : ''}</span>
                         <span className="order-admin-time">{formatTime(order.createdAt)}</span>
                       </div>
-                      
+
                       <div className="order-admin-items">
                         {order.items.map((item, idx) => (
                           <div key={idx} className="order-admin-item-row">
@@ -633,14 +651,14 @@ export default function AdminView({ onExit }) {
                       </div>
 
                       <div className="order-admin-actions" style={{ display: 'flex', gap: '8px', width: '100%' }}>
-                        <button 
+                        <button
                           className="btn-primary btn-small"
                           style={{ flex: 2 }}
                           onClick={() => handleUpdateStatus(order.id, 'preparing')}
                         >
                           주문 수락
                         </button>
-                        <button 
+                        <button
                           className="btn-danger btn-small"
                           style={{ flex: 1, backgroundColor: 'var(--toss-red-light)', color: 'var(--toss-red)', boxShadow: 'none' }}
                           onClick={() => handleUpdateStatus(order.id, 'cancelled')}
@@ -684,14 +702,14 @@ export default function AdminView({ onExit }) {
                       </div>
 
                       <div className="order-admin-actions">
-                        <button 
+                        <button
                           className="btn-danger btn-small"
                           style={{ flex: 'none', width: '60px', padding: '10px 0' }}
                           onClick={() => handleUpdateStatus(order.id, 'cancelled')}
                         >
                           취소
                         </button>
-                        <button 
+                        <button
                           className="btn-primary btn-small"
                           style={{ backgroundColor: 'var(--toss-green)', boxShadow: 'none' }}
                           onClick={() => handleUpdateStatus(order.id, 'completed')}
@@ -707,8 +725,8 @@ export default function AdminView({ onExit }) {
 
             {/* COLUMN C: 완료 이력 (Completed History) */}
             <div className="board-column completed-column" style={{ opacity: 0.85 }}>
-              <div 
-                className="column-header collapsible-header" 
+              <div
+                className="column-header collapsible-header"
                 onClick={() => {
                   if (window.innerWidth < 768) {
                     setIsHistoryCollapsed(!isHistoryCollapsed);
@@ -766,15 +784,15 @@ export default function AdminView({ onExit }) {
         {/* TAB 2: MENU CONFIGURATION */}
         {activeTab === 'menu_mgmt' && (
           <div>
-            
+
             {/* Category Management Block */}
             <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', padding: '16px', marginBottom: '24px' }}>
               <div style={{ fontWeight: '800', fontSize: '16px', marginBottom: '12px', display: 'flex', alignItems: 'center', gap: '6px' }}>카테고리 관리</div>
-              
+
               <form onSubmit={handleAddCategory} style={{ display: 'flex', gap: '8px', marginBottom: '16px' }}>
-                <input 
-                  type="text" 
-                  className="form-control" 
+                <input
+                  type="text"
+                  className="form-control"
                   placeholder="새 카테고리명 (예: 에이드)"
                   value={newCategoryName}
                   onChange={(e) => setNewCategoryName(e.target.value)}
@@ -787,24 +805,24 @@ export default function AdminView({ onExit }) {
 
               <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
                 {categories.map(cat => (
-                  <div 
-                    key={cat} 
-                    style={{ 
-                      display: 'inline-flex', 
-                      alignItems: 'center', 
-                      gap: '6px', 
-                      backgroundColor: 'var(--bg-primary)', 
-                      padding: '6px 12px', 
-                      borderRadius: '30px', 
+                  <div
+                    key={cat}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: '6px',
+                      backgroundColor: 'var(--bg-primary)',
+                      padding: '6px 12px',
+                      borderRadius: '30px',
                       border: '1px solid var(--border-color)',
                       fontSize: '13px',
                       fontWeight: '600'
                     }}
                   >
                     <span>{cat}</span>
-                    <button 
-                      type="button" 
-                      style={{ color: 'var(--toss-red)', fontWeight: 'bold', fontSize: '12px' }} 
+                    <button
+                      type="button"
+                      style={{ color: 'var(--toss-red)', fontWeight: 'bold', fontSize: '12px' }}
                       onClick={() => handleDeleteCategory(cat)}
                       title="카테고리 삭제"
                     >
@@ -818,13 +836,13 @@ export default function AdminView({ onExit }) {
             {/* Form to add a new drink */}
             <form className="menu-editor-form" onSubmit={handleAddMenuItem}>
               <div className="form-title">신규 음료 추가</div>
-              
+
               <div className="form-group">
                 <label>음료명</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
-                  placeholder="예: 돌체 콜드브루" 
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="예: 돌체 콜드브루"
                   value={newDrinkName}
                   onChange={(e) => setNewDrinkName(e.target.value)}
                   required
@@ -833,8 +851,8 @@ export default function AdminView({ onExit }) {
 
               <div className="form-group">
                 <label>설명 (선택)</label>
-                <textarea 
-                  className="form-control" 
+                <textarea
+                  className="form-control"
                   placeholder="예: 깔끔한 콜드브루에 달콤한 연유가 가득한 음료"
                   value={newDrinkDesc}
                   onChange={(e) => setNewDrinkDesc(e.target.value)}
@@ -844,7 +862,7 @@ export default function AdminView({ onExit }) {
 
               <div className="form-group">
                 <label>카테고리</label>
-                <select 
+                <select
                   className="form-control"
                   value={newDrinkCategory}
                   onChange={(e) => setNewDrinkCategory(e.target.value)}
@@ -858,7 +876,7 @@ export default function AdminView({ onExit }) {
               {/* Option Builder Section */}
               <div className="form-group" style={{ borderTop: '1px solid var(--border-color)', paddingTop: '16px', marginTop: '8px' }}>
                 <label style={{ fontSize: '14px', color: 'var(--text-primary)' }}>음료 옵션 설정</label>
-                
+
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', margin: '8px 0' }}>
                   {drinkOptions.length === 0 ? (
                     <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>설정된 맞춤 옵션이 없습니다. (미지정 시 기본 온도/당도 템플릿이 적용됩니다)</span>
@@ -876,7 +894,7 @@ export default function AdminView({ onExit }) {
                 </div>
 
                 <div style={{ display: 'flex', flexWrap: 'wrap', gap: '6px', margin: '8px 0' }}>
-                  {['샷 추가', '얼음 양', '당도 선택', '휘핑 크림'].map(preset => (
+                  {['온도', '샷', '얼음 양', '당도 선택', '휘핑 크림'].map(preset => (
                     <button
                       key={preset}
                       type="button"
@@ -891,18 +909,18 @@ export default function AdminView({ onExit }) {
 
                 <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', backgroundColor: 'var(--bg-primary)', padding: '12px', borderRadius: '10px', border: '1px solid var(--border-color)', marginTop: '8px' }}>
                   <span style={{ fontSize: '12px', fontWeight: 'bold', color: 'var(--text-secondary)' }}>직접 옵션 만들기</span>
-                  
+
                   <div style={{ display: 'flex', gap: '8px' }}>
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      style={{ flex: 2, padding: '8px', fontSize: '13px' }} 
-                      placeholder="옵션명 (예: 우유 선택)" 
+                    <input
+                      type="text"
+                      className="form-control"
+                      style={{ flex: 2, padding: '8px', fontSize: '13px' }}
+                      placeholder="옵션명 (예: 우유 선택)"
                       value={customOptName}
                       onChange={(e) => setCustomOptName(e.target.value)}
                     />
-                    <select 
-                      className="form-control" 
+                    <select
+                      className="form-control"
                       style={{ flex: 1, padding: '8px', fontSize: '13px' }}
                       value={customOptType}
                       onChange={(e) => setCustomOptType(e.target.value)}
@@ -913,19 +931,19 @@ export default function AdminView({ onExit }) {
                   </div>
 
                   {customOptType === 'select' && (
-                    <input 
-                      type="text" 
-                      className="form-control" 
-                      style={{ padding: '8px', fontSize: '12px' }} 
-                      placeholder="옵션 선택 항목 (쉼표로 구분, 예: 일반우유, 저지방, 두유)" 
+                    <input
+                      type="text"
+                      className="form-control"
+                      style={{ padding: '8px', fontSize: '12px' }}
+                      placeholder="옵션 선택 항목 (쉼표로 구분, 예: 일반우유, 저지방, 두유)"
                       value={customOptChoices}
                       onChange={(e) => setCustomOptChoices(e.target.value)}
                     />
                   )}
 
-                  <button 
-                    type="button" 
-                    className="btn-secondary" 
+                  <button
+                    type="button"
+                    className="btn-secondary"
                     style={{ padding: '8px', fontSize: '13px', borderRadius: '6px' }}
                     onClick={addCustomOption}
                   >
@@ -936,15 +954,15 @@ export default function AdminView({ onExit }) {
 
               <div className="form-group">
                 <label>음료 이미지</label>
-                <input 
-                  type="file" 
+                <input
+                  type="file"
                   accept="image/*"
                   onChange={handleImageChange}
                   ref={fileInputRef}
                   style={{ display: 'none' }}
                   id="admin-image-file-input"
                 />
-                <div 
+                <div
                   className="image-upload-area"
                   onClick={() => document.getElementById('admin-image-file-input').click()}
                 >
@@ -974,26 +992,26 @@ export default function AdminView({ onExit }) {
 
             {/* List of current menu items */}
             <div style={{ fontWeight: '800', fontSize: '16px', margin: '20px 0 12px 0' }}>등록된 메뉴 ({menu.length})</div>
-            
+
             <div className="menu-editor-list">
               {menu.map(item => (
                 <div key={item.id} className="menu-editor-item" style={{ opacity: item.available ? 1 : 0.6 }}>
                   {item.image ? (
-                    <img 
-                      src={getApiUrl(item.image)} 
-                      alt={item.name} 
+                    <img
+                      src={getApiUrl(item.image)}
+                      alt={item.name}
                       className="menu-editor-thumbnail"
                       onError={(e) => {
                         e.target.style.display = 'none';
                       }}
                     />
                   ) : (
-                    <div 
-                      className="menu-editor-thumbnail" 
-                      style={{ 
-                        background: 'var(--bg-tertiary)', 
-                        display: 'flex', 
-                        alignItems: 'center', 
+                    <div
+                      className="menu-editor-thumbnail"
+                      style={{
+                        background: 'var(--bg-tertiary)',
+                        display: 'flex',
+                        alignItems: 'center',
                         justifyContent: 'center'
                       }}
                     >
@@ -1013,7 +1031,7 @@ export default function AdminView({ onExit }) {
                   </div>
 
                   {/* Toggle availability (품절 처리) */}
-                  <div 
+                  <div
                     className="switch-container"
                     onClick={() => handleToggleAvailability(item.id, item.available)}
                   >
@@ -1023,8 +1041,8 @@ export default function AdminView({ onExit }) {
                     </div>
                   </div>
 
-                  <button 
-                    className="delete-icon-btn" 
+                  <button
+                    className="delete-icon-btn"
                     onClick={() => handleDeleteMenuItem(item.id)}
                     title="메뉴 삭제"
                   >
@@ -1049,13 +1067,13 @@ export default function AdminView({ onExit }) {
               <div style={{ fontWeight: '800', fontSize: '16px' }}>시스템 설정</div>
               <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>버전 v1.2.0</span>
             </div>
-            
+
             <form onSubmit={handleSaveConfig} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
               <div className="form-group">
                 <label>키오스크 상단 타이틀</label>
-                <input 
-                  type="text" 
-                  className="form-control" 
+                <input
+                  type="text"
+                  className="form-control"
                   placeholder="예: Home Cafe"
                   value={kioskTitle}
                   onChange={(e) => setKioskTitle(e.target.value)}
@@ -1066,12 +1084,12 @@ export default function AdminView({ onExit }) {
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div className="form-group">
                   <label>새 관리자 비밀번호 (숫자 4자리)</label>
-                  <input 
-                    type="password" 
+                  <input
+                    type="password"
                     maxLength="4"
                     pattern="[0-9]*"
                     inputMode="numeric"
-                    className="form-control" 
+                    className="form-control"
                     placeholder="변경 안 함"
                     value={newPin}
                     onChange={(e) => setNewPin(e.target.value)}
@@ -1079,12 +1097,12 @@ export default function AdminView({ onExit }) {
                 </div>
                 <div className="form-group">
                   <label>비밀번호 확인</label>
-                  <input 
-                    type="password" 
+                  <input
+                    type="password"
                     maxLength="4"
                     pattern="[0-9]*"
                     inputMode="numeric"
-                    className="form-control" 
+                    className="form-control"
                     placeholder="변경 안 함"
                     value={confirmPin}
                     onChange={(e) => setConfirmPin(e.target.value)}
@@ -1102,9 +1120,9 @@ export default function AdminView({ onExit }) {
               <p style={{ fontSize: '12px', color: 'var(--text-tertiary)', marginBottom: '12px', lineBreak: 'anywhere' }}>
                 GitHub 원격 저장소에서 최신 소스코드를 다운로드하고 도커 환경을 재생성합니다. 업데이트가 완료되면 시스템이 자동으로 재시작되며, 현재 페이지를 새로고침하셔야 합니다.
               </p>
-              <button 
-                type="button" 
-                className="btn-danger" 
+              <button
+                type="button"
+                className="btn-danger"
                 style={{ padding: '10px 16px', fontSize: '13px', width: 'fit-content' }}
                 onClick={handleSystemUpdate}
                 disabled={loading}

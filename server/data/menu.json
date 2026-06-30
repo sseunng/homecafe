@@ -60,6 +60,45 @@
     "available": true
   },
   {
+    "id": "menu_1782798930342",
+    "name": "카페 아메리카노",
+    "description": "진한 에스프레소에 정수물을 더한 깊이와 풍미가 살아있는 커피",
+    "category": "커피",
+    "image": "/uploads/menu-1782798930324-899987477.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798918017_vkw0c",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798921097_u9v10",
+        "name": "샷",
+        "type": "count",
+        "min": 1,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "id": "opt_ice_americano",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
+      }
+    ],
+    "available": true
+  },
+  {
     "id": "menu_1782797949365",
     "name": "카페 라떼",
     "description": "풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품를 살짝 얹은 커피",
@@ -78,11 +117,22 @@
       },
       {
         "id": "opt_1782797855186_kd4eb",
-        "name": "샷 추가",
+        "name": "샷",
         "type": "count",
-        "min": 0,
+        "min": 1,
         "max": 4,
-        "default": 0
+        "default": 1
+      },
+      {
+        "id": "opt_ice_cafelatte",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
       },
       {
         "id": "opt_1782797910740_8q7ta",
@@ -117,11 +167,11 @@
       },
       {
         "id": "opt_1782797983042_2atit",
-        "name": "샷 추가",
+        "name": "샷",
         "type": "count",
-        "min": 0,
+        "min": 1,
         "max": 4,
-        "default": 0
+        "default": 1
       },
       {
         "id": "opt_1782797983642_y1nos",
@@ -130,8 +180,7 @@
         "choices": [
           "보통",
           "적게",
-          "많이",
-          "없음"
+          "많이"
         ],
         "default": "보통"
       },
@@ -168,11 +217,22 @@
       },
       {
         "id": "opt_1782798073265_sbxrc",
-        "name": "샷 추가",
+        "name": "샷",
         "type": "count",
-        "min": 0,
+        "min": 1,
         "max": 4,
-        "default": 0
+        "default": 1
+      },
+      {
+        "id": "opt_ice_dolcelatte",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
       },
       {
         "id": "opt_1782798075041_dszi1",
@@ -207,11 +267,22 @@
       },
       {
         "id": "opt_1782798145124_6k3xy",
-        "name": "샷 추가",
+        "name": "샷",
         "type": "count",
-        "min": 0,
+        "min": 1,
         "max": 4,
-        "default": 0
+        "default": 1
+      },
+      {
+        "id": "opt_ice_cafemocha",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
       },
       {
         "id": "opt_1782798150061_t9bnq",
@@ -257,11 +328,22 @@
       },
       {
         "id": "opt_1782798207212_xlfs2",
-        "name": "샷 추가",
+        "name": "샷",
         "type": "count",
-        "min": 0,
+        "min": 1,
         "max": 4,
-        "default": 0
+        "default": 1
+      },
+      {
+        "id": "opt_ice_cappuccino",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
       }
     ],
     "available": true
@@ -285,11 +367,22 @@
       },
       {
         "id": "opt_1782798269580_bi1qf",
-        "name": "샷 추가",
+        "name": "샷",
         "type": "count",
-        "min": 0,
+        "min": 1,
         "max": 4,
-        "default": 0
+        "default": 1
+      },
+      {
+        "id": "opt_ice_caramelmacchiato",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
       },
       {
         "id": "opt_1782798271570_q5gjp",
@@ -324,11 +417,22 @@
       },
       {
         "id": "opt_1782798337155_zr7g2",
-        "name": "샷 추가",
+        "name": "샷",
         "type": "count",
-        "min": 0,
+        "min": 1,
         "max": 4,
-        "default": 0
+        "default": 1
+      },
+      {
+        "id": "opt_ice_whitemocha",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
       },
       {
         "id": "opt_1782798338403_vc5ca",
@@ -340,34 +444,6 @@
           "시럽 추가"
         ],
         "default": "기본"
-      }
-    ],
-    "available": true
-  },
-  {
-    "id": "menu_1782798930342",
-    "name": "카페 아메리카노",
-    "description": "진한 에스프레소에 정수물을 더한 깊이와 풍미가 살아있는 커피",
-    "category": "커피",
-    "image": "/uploads/menu-1782798930324-899987477.jpeg",
-    "options": [
-      {
-        "id": "opt_1782798918017_vkw0c",
-        "name": "온도",
-        "type": "select",
-        "choices": [
-          "핫",
-          "아이스"
-        ],
-        "default": "핫"
-      },
-      {
-        "id": "opt_1782798921097_u9v10",
-        "name": "샷 추가",
-        "type": "count",
-        "min": 0,
-        "max": 4,
-        "default": 0
       }
     ],
     "available": true

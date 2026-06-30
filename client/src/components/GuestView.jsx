@@ -210,7 +210,7 @@ export default function GuestView({ onAdminEnter }) {
     if (!item.available) return;
     setSelectedItem(item);
     setQuantity(1);
-    setTempOption('Ice');
+    setTempOption('핫');
     setSweetOption('기본');
 
     // Initialize custom options selection
@@ -244,16 +244,18 @@ export default function GuestView({ onAdminEnter }) {
 
     let optionsStr = '';
     if (selectedItem.options && selectedItem.options.length > 0) {
-      optionsStr = selectedItem.options.map(opt => {
-        if (opt.type === 'select') {
-          return `${opt.name}: ${customOptions[opt.name] || opt.default}`;
-        } else {
-          const val = customOptions[opt.name] || 0;
-          return `${opt.name} (+${val})`;
-        }
-      }).join(', ');
+      optionsStr = selectedItem.options
+        .filter(opt => !(customOptions["온도"] === "핫" && opt.name === "얼음 양"))
+        .map(opt => {
+          if (opt.type === 'select') {
+            return `${opt.name}: ${customOptions[opt.name] || opt.default}`;
+          } else {
+            const val = customOptions[opt.name] || 0;
+            return `${opt.name} (+${val})`;
+          }
+        }).join(', ');
     } else {
-      optionsStr = `${tempOption === 'Ice' ? '아이스' : '핫'}, 당도: ${sweetOption}`;
+      optionsStr = `${tempOption === '아이스' ? '아이스' : '핫'}, 당도: ${sweetOption}`;
     }
 
     const cartItem = {
@@ -684,126 +686,146 @@ export default function GuestView({ onAdminEnter }) {
               <button className="bottom-sheet-close-btn" onClick={closeBottomSheet}>×</button>
             </div>
 
-            <div className="item-detail-preview">
-              <div className="menu-card-image-container" style={{ width: '90px', height: '90px' }}>
-                {selectedItem.image ? (
-                  <img 
-                    src={getApiUrl(selectedItem.image)} 
-                    alt={selectedItem.name} 
-                    className="menu-card-image"
-                    onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
-                    }}
-                  />
-                ) : null}
-                <div 
-                  className={`menu-card-image-fallback ${getCategoryGradientClass(selectedItem.category)}`}
-                  style={{ display: selectedItem.image ? 'none' : 'flex' }}
-                >
-                  {getCategoryEmoji(selectedItem.category)}
+            <div className="bottom-sheet-body">
+              <div className="item-detail-preview">
+                <div className="menu-card-image-container" style={{ width: '90px', height: '90px' }}>
+                  {selectedItem.image ? (
+                    <img 
+                      src={getApiUrl(selectedItem.image)} 
+                      alt={selectedItem.name} 
+                      className="menu-card-image"
+                      onError={(e) => {
+                        e.target.style.display = 'none';
+                        e.target.nextSibling.style.display = 'flex';
+                      }}
+                    />
+                  ) : null}
+                  <div 
+                    className={`menu-card-image-fallback ${getCategoryGradientClass(selectedItem.category)}`}
+                    style={{ display: selectedItem.image ? 'none' : 'flex' }}
+                  >
+                    {getCategoryEmoji(selectedItem.category)}
+                  </div>
+                </div>
+                <div className="item-detail-info">
+                  <p className="item-detail-desc">{selectedItem.description || '상세 설명이 등록되지 않았습니다.'}</p>
                 </div>
               </div>
-              <div className="item-detail-info">
-                <p className="item-detail-desc">{selectedItem.description || '상세 설명이 등록되지 않았습니다.'}</p>
-              </div>
-            </div>
 
-            {selectedItem.options && selectedItem.options.length > 0 ? (
-              selectedItem.options.map(opt => (
-                <div key={opt.id} className="options-group">
-                  <div className="options-title">{opt.name}</div>
+              {selectedItem.options && selectedItem.options.length > 0 ? (
+                selectedItem.options.map(opt => {
+                  // Hide '얼음 양' option when temperature is '핫'
+                  if (customOptions["온도"] === "핫" && opt.name === "얼음 양") {
+                    return null;
+                  }
                   
-                  {opt.type === 'select' ? (
-                    <div className="options-list" style={{ flexWrap: 'wrap', gap: '8px' }}>
-                      {opt.choices.map(choice => (
-                        <button
-                          key={choice}
-                          type="button"
-                          className={`option-pill ${customOptions[opt.name] === choice ? 'active' : ''}`}
-                          style={{ flex: 'none', minWidth: '80px', padding: '10px 16px' }}
-                          onClick={() => setCustomOptions(prev => ({ ...prev, [opt.name]: choice }))}
+                  const isCounter = opt.type !== 'select';
+                  
+                  return (
+                    <div 
+                      key={opt.id} 
+                      className="options-group"
+                      style={isCounter ? { display: 'flex', justifyContent: 'space-between', alignItems: 'center' } : {}}
+                    >
+                      <div 
+                        className="options-title"
+                        style={isCounter ? { marginBottom: 0 } : {}}
+                      >
+                        {opt.name}
+                      </div>
+                      
+                      {opt.type === 'select' ? (
+                        <div className="options-list" style={{ flexWrap: 'wrap', gap: '8px' }}>
+                          {opt.choices.map(choice => (
+                            <button
+                              key={choice}
+                              type="button"
+                              className={`option-pill ${customOptions[opt.name] === choice ? 'active' : ''}`}
+                              style={{ flex: 'none', minWidth: '80px', padding: '10px 16px' }}
+                              onClick={() => setCustomOptions(prev => ({ ...prev, [opt.name]: choice }))}
+                            >
+                              {choice}
+                            </button>
+                          ))}
+                        </div>
+                      ) : (
+                        // Counter Option
+                        <div className="quantity-controls" style={{ justifyContent: 'flex-end', backgroundColor: 'var(--bg-secondary)', padding: '10px 16px', borderRadius: 'var(--radius-sm)' }}>
+                          <button
+                            type="button"
+                            className="qty-btn"
+                            onClick={() => setCustomOptions(prev => ({
+                              ...prev,
+                              [opt.name]: Math.max(opt.min !== undefined ? opt.min : 0, (prev[opt.name] || 0) - 1)
+                            }))}
+                          >
+                            -
+                          </button>
+                          <span className="qty-number" style={{ minWidth: '32px' }}>
+                            {customOptions[opt.name] || 0}
+                          </span>
+                          <button
+                            type="button"
+                            className="qty-btn"
+                            onClick={() => setCustomOptions(prev => ({
+                              ...prev,
+                              [opt.name]: Math.min(opt.max !== undefined ? opt.max : 4, (prev[opt.name] || 0) + 1)
+                            }))}
+                          >
+                            +
+                          </button>
+                        </div>
+                      )}
+                    </div>
+                  );
+                })
+              ) : (
+                <>
+                  {/* Fallback Temperature Option */}
+                  <div className="options-group">
+                    <div className="options-title">온도</div>
+                    <div className="options-list">
+                      <button 
+                        className={`option-pill ${tempOption === '핫' ? 'active' : ''}`}
+                        onClick={() => setTempOption('핫')}
+                      >
+                        핫
+                      </button>
+                      <button 
+                        className={`option-pill ${tempOption === '아이스' ? 'active' : ''}`}
+                        onClick={() => setTempOption('아이스')}
+                      >
+                        아이스
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Fallback Sweetness Option */}
+                  <div className="options-group">
+                    <div className="options-title">당도 선택</div>
+                    <div className="options-list">
+                      {['기본', '덜 달게', '시럽 추가'].map(opt => (
+                        <button 
+                          key={opt}
+                          className={`option-pill ${sweetOption === opt ? 'active' : ''}`}
+                          onClick={() => setSweetOption(opt)}
                         >
-                          {choice}
+                          {opt}
                         </button>
                       ))}
                     </div>
-                  ) : (
-                    // Counter Option
-                    <div className="quantity-controls" style={{ justifyContent: 'start', backgroundColor: 'var(--bg-secondary)', padding: '10px 16px', borderRadius: 'var(--radius-sm)' }}>
-                      <button
-                        type="button"
-                        className="qty-btn"
-                        onClick={() => setCustomOptions(prev => ({
-                          ...prev,
-                          [opt.name]: Math.max(opt.min || 0, (prev[opt.name] || 0) - 1)
-                        }))}
-                      >
-                        -
-                      </button>
-                      <span className="qty-number" style={{ minWidth: '32px' }}>
-                        {customOptions[opt.name] || 0}
-                      </span>
-                      <button
-                        type="button"
-                        className="qty-btn"
-                        onClick={() => setCustomOptions(prev => ({
-                          ...prev,
-                          [opt.name]: Math.min(opt.max || 4, (prev[opt.name] || 0) + 1)
-                        }))}
-                      >
-                        +
-                      </button>
-                    </div>
-                  )}
-                </div>
-              ))
-            ) : (
-              <>
-                {/* Fallback Temperature Option */}
-                <div className="options-group">
-                  <div className="options-title">온도</div>
-                  <div className="options-list">
-                    <button 
-                      className={`option-pill ${tempOption === 'Ice' ? 'active' : ''}`}
-                      onClick={() => setTempOption('Ice')}
-                    >
-                      아이스 (Ice)
-                    </button>
-                    <button 
-                      className={`option-pill ${tempOption === 'Hot' ? 'active' : ''}`}
-                      onClick={() => setTempOption('Hot')}
-                    >
-                      핫 (Hot)
-                    </button>
                   </div>
-                </div>
+                </>
+              )}
 
-                {/* Fallback Sweetness Option */}
-                <div className="options-group">
-                  <div className="options-title">당도 선택</div>
-                  <div className="options-list">
-                    {['기본', '덜 달게', '시럽 추가'].map(opt => (
-                      <button 
-                        key={opt}
-                        className={`option-pill ${sweetOption === opt ? 'active' : ''}`}
-                        onClick={() => setSweetOption(opt)}
-                      >
-                        {opt}
-                      </button>
-                    ))}
-                  </div>
+              {/* Quantity Selector */}
+              <div className="quantity-selector">
+                <span className="quantity-label">수량</span>
+                <div className="quantity-controls">
+                  <button className="qty-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
+                  <span className="qty-number">{quantity}</span>
+                  <button className="qty-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
                 </div>
-              </>
-            )}
-
-            {/* Quantity Selector */}
-            <div className="quantity-selector">
-              <span className="quantity-label">수량</span>
-              <div className="quantity-controls">
-                <button className="qty-btn" onClick={() => setQuantity(q => Math.max(1, q - 1))}>-</button>
-                <span className="qty-number">{quantity}</span>
-                <button className="qty-btn" onClick={() => setQuantity(q => q + 1)}>+</button>
               </div>
             </div>
 

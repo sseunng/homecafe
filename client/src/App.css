@@ -319,6 +319,16 @@
   box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.15);
   animation: slideUp var(--transition-normal) forwards;
   z-index: 1001;
+  max-height: 85vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.bottom-sheet-body {
+  flex: 1;
+  overflow-y: auto;
+  margin-bottom: 16px;
+  padding-right: 4px;
 }
 
 .bottom-sheet-handle {
@@ -471,6 +481,7 @@
 .bottom-sheet-actions {
   display: flex;
   gap: 12px;
+  flex-shrink: 0;
 }
 
 .btn-secondary {
