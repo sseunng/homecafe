@@ -53,6 +53,11 @@ export default function AdminView({ onExit }) {
   const [customOptType, setCustomOptType] = useState('select'); // select, count
   const [customOptChoices, setCustomOptChoices] = useState('');
 
+  // System Update authentication states
+  const [showUpdatePinModal, setShowUpdatePinModal] = useState(false);
+  const [updatePin, setUpdatePin] = useState('');
+  const [updatePinError, setUpdatePinError] = useState(false);
+
   // Sync document title with configured kiosk title
   useEffect(() => {
     if (kioskTitle) {
