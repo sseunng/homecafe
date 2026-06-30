@@ -1,42 +1,347 @@
 [
   {
-    "id": "menu_1",
-    "name": "아메리카노",
-    "description": "깊고 진한 에스프레소에 시원한 물을 더한 깔끔하고 고소한 커피",
-    "image": "/uploads/default_americano.png",
+    "id": "menu_1782796631391",
+    "name": "에스프레소",
+    "description": "입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
     "category": "커피",
+    "image": "/uploads/menu-1782796631378-91444924.jpeg",
+    "options": [
+      {
+        "id": "opt_1782796591696_2kk9s",
+        "name": "샷",
+        "type": "select",
+        "choices": [
+          "솔로",
+          "도피오"
+        ],
+        "default": "솔로"
+      }
+    ],
     "available": true
   },
   {
-    "id": "menu_2",
-    "name": "카페라떼",
-    "description": "에스프레소의 고소함과 부드러운 우유가 조화롭게 어우러진 라떼",
-    "image": "/uploads/default_latte.png",
+    "id": "menu_1782796750615",
+    "name": "에스프레소 마키아또",
+    "description": "신선한 에스프레소 샷 위에 우유 거품을 살짝 얹은 커피 음료",
     "category": "커피",
+    "image": "/uploads/menu-1782796750611-474686228.jpeg",
+    "options": [
+      {
+        "id": "opt_1782796732709_w553q",
+        "name": "샷",
+        "type": "select",
+        "choices": [
+          "솔로",
+          "도피오"
+        ],
+        "default": "솔로"
+      }
+    ],
     "available": true
   },
   {
-    "id": "menu_3",
-    "name": "바닐라라떼",
-    "description": "천연 바닐라 빈 시럽을 넣어 더욱 달콤하고 향긋한 라떼",
-    "image": "/uploads/default_vanilla_latte.png",
+    "id": "menu_1782797404000",
+    "name": "에스프레소 콘 파나",
+    "description": "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료",
     "category": "커피",
+    "image": "/uploads/menu-1782797403975-422946812.jpeg",
+    "options": [
+      {
+        "id": "opt_1782797394966_2xkgu",
+        "name": "샷",
+        "type": "select",
+        "choices": [
+          "솔로",
+          "도피오"
+        ],
+        "default": "솔로"
+      }
+    ],
     "available": true
   },
   {
-    "id": "menu_4",
-    "name": "자몽에이드",
-    "description": "톡 쏘는 탄산수에 수제 자몽 청을 듬뿍 넣어 상큼하고 달콤한 에이드",
-    "image": "/uploads/default_grapefruit_ade.png",
-    "category": "논커피",
+    "id": "menu_1782797949365",
+    "name": "카페 라떼",
+    "description": "풍부하고 진한 에스프레소가 신선한 스팀 밀크를 만나 부드러워진 커피 위에 우유 거품를 살짝 얹은 커피",
+    "category": "커피",
+    "image": "/uploads/menu-1782797949355-349481581.jpeg",
+    "options": [
+      {
+        "id": "opt_1782797854295_4bzk2",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782797855186_kd4eb",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      },
+      {
+        "id": "opt_1782797910740_8q7ta",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
     "available": true
   },
   {
-    "id": "menu_5",
-    "name": "캐모마일 블렌드",
-    "description": "마음을 차분하게 해주는 은은한 사과 향의 허브 티",
-    "image": "/uploads/default_chamomile.png",
-    "category": "티",
+    "id": "menu_1782798012173",
+    "name": "바닐라 라떼",
+    "description": "달콤한 바닐라의 향을 풍부하고 진한 에스프레소, 부드러운 우유와 함께 즐길 수 있는 라떼입니다. ",
+    "category": "커피",
+    "image": "/uploads/menu-1782798012162-678571729.jpeg",
+    "options": [
+      {
+        "id": "opt_1782797982209_8y3oz",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782797983042_2atit",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      },
+      {
+        "id": "opt_1782797983642_y1nos",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이",
+          "없음"
+        ],
+        "default": "보통"
+      },
+      {
+        "id": "opt_1782797985762_476ul",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782798083246",
+    "name": "돌체 라떼",
+    "description": "부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
+    "category": "커피",
+    "image": "/uploads/menu-1782798083235-463110865.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798072268_z6ncn",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798073265_sbxrc",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      },
+      {
+        "id": "opt_1782798075041_dszi1",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782798161693",
+    "name": "카페 모카",
+    "description": "진한 에스프레소와 초콜릿 맛이 어우러진 커피",
+    "category": "커피",
+    "image": "/uploads/menu-1782798161682-876910714.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798144457_r773u",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798145124_6k3xy",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      },
+      {
+        "id": "opt_1782798150061_t9bnq",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      },
+      {
+        "id": "opt_1782798154179_selw2",
+        "name": "휘핑 크림",
+        "type": "select",
+        "choices": [
+          "보통",
+          "많이",
+          "없음"
+        ],
+        "default": "보통"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782798218803",
+    "name": "카푸치노",
+    "description": "풍부하고 진한 에스프레소에 따뜻한 우유와 벨벳 같은 우유 거품이 1:1 비율로 어우러져 마무리된 커피 음료",
+    "category": "커피",
+    "image": "/uploads/menu-1782798218792-357754207.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798206486_6h7bu",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798207212_xlfs2",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782798279734",
+    "name": "카라멜 마끼아또",
+    "description": "향긋한 바닐라 시럽과 따뜻한 스팀 밀크 위에 풍성한 우유 거품을 얹고 점을 찍듯이 에스프레소를 부은 후 벌집 모양으로 카라멜 드리즐을 올린 달콤한 커피 음료",
+    "category": "커피",
+    "image": "/uploads/menu-1782798279723-542321705.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798267555_tvjde",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798269580_bi1qf",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      },
+      {
+        "id": "opt_1782798271570_q5gjp",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782798345084",
+    "name": "화이트 초콜릿 모카",
+    "description": "달콤하고 부드러운 화이트 초콜릿 시럽과 에스프레소를 스팀 밀크와 섞어 휘핑크림으로 마무리한 음료",
+    "category": "커피",
+    "image": "/uploads/menu-1782798345068-295547200.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798336539_ek9b2",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798337155_zr7g2",
+        "name": "샷 추가",
+        "type": "count",
+        "min": 0,
+        "max": 4,
+        "default": 0
+      },
+      {
+        "id": "opt_1782798338403_vc5ca",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
     "available": true
   }
 ]

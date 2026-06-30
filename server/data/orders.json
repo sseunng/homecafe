@@ -11,7 +11,23 @@
         "options": "Ice, 기본"
       }
     ],
-    "status": "pending",
+    "status": "picked_up",
     "createdAt": "2026-06-22T15:02:59.001Z"
+  },
+  {
+    "id": "order_1782489749540_va26kexy3",
+    "orderNumber": 1,
+    "guestId": "guest_nacerl24j0rkzb1skhgpyl",
+    "nickname": "",
+    "items": [
+      {
+        "menuId": "menu_1",
+        "name": "아메리카노",
+        "quantity": 1,
+        "options": "아이스, 당도: 기본"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-06-26T16:02:29.540Z"
   }
 ]
