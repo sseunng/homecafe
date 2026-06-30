@@ -89,10 +89,10 @@ app.post('/api/menu', upload.single('image'), (req, res) => {
     };
 
     MenuStore.add(newItem);
-    
+
     // Broadcast updated menu to all clients
     io.emit('menu_updated', MenuStore.getAll());
-    
+
     res.status(201).json(newItem);
   } catch (error) {
     console.error('Add menu error:', error);
@@ -107,10 +107,10 @@ app.patch('/api/menu/:id/availability', (req, res) => {
     if (!updated) {
       return res.status(404).json({ error: 'Menu item not found' });
     }
-    
+
     // Broadcast updated menu to all clients
     io.emit('menu_updated', MenuStore.getAll());
-    
+
     res.json(updated);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update menu item' });
@@ -120,10 +120,10 @@ app.patch('/api/menu/:id/availability', (req, res) => {
 app.delete('/api/menu/:id', (req, res) => {
   try {
     MenuStore.delete(req.params.id);
-    
+
     // Broadcast updated menu to all clients
     io.emit('menu_updated', MenuStore.getAll());
-    
+
     res.json({ success: true });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete menu item' });
@@ -183,10 +183,10 @@ app.post('/api/config', (req, res) => {
     if (adminPin && adminPin.trim().length === 4) updateData.adminPin = adminPin.trim();
 
     const updated = ConfigStore.save(updateData);
-    
+
     // Broadcast config update (without PIN) to all clients
     io.emit('config_updated', { kioskTitle: updated.kioskTitle });
-    
+
     res.json({ kioskTitle: updated.kioskTitle });
   } catch (error) {
     res.status(500).json({ error: 'Failed to update config' });
@@ -241,7 +241,7 @@ app.post('/api/orders', (req, res) => {
 
     // Notify admins of new order
     io.to('admin').emit('new_order', newOrder);
-    
+
     // Notify this specific guest in their guest room
     io.to(`guest_${guestId}`).emit('order_created', newOrder);
 
@@ -296,7 +296,7 @@ app.post('/api/system/update', (req, res) => {
     }
 
     console.log('Triggering system update script asynchronously...');
-    const scriptPath = path.join(__dirname, '..', 'update.sh');
+    const scriptPath = path.join(__dirname, '~/homecafe/update.sh');
     const logPath = path.join(__dirname, 'data', 'update.log');
 
     // Appending a start marker safely via synchronous file operation
@@ -311,7 +311,7 @@ app.post('/api/system/update', (req, res) => {
     } catch (chmodErr) {
       try {
         fs.appendFileSync(logPath, `Warning: Failed to set execute permission on update.sh: ${chmodErr.message}\n`);
-      } catch (e) {}
+      } catch (e) { }
     }
 
     const { spawn } = require('child_process');
@@ -335,14 +335,14 @@ if (fs.existsSync(clientDistPath)) {
     try {
       const htmlPath = path.join(clientDistPath, 'index.html');
       let htmlContent = fs.readFileSync(htmlPath, 'utf8');
-      
+
       const config = ConfigStore.get();
       const title = config.kioskTitle || 'Home Cafe';
-      
+
       // Replace dynamic title and metadata
       htmlContent = htmlContent.replace(/<title>.*?<\/title>/g, `<title>${title}</title>`);
       htmlContent = htmlContent.replace(/content="Home Cafe"/g, `content="${title}"`);
-      
+
       res.send(htmlContent);
     } catch (e) {
       res.sendFile(path.join(clientDistPath, 'index.html'));
@@ -359,7 +359,7 @@ io.on('connection', (socket) => {
   // Registration handler for separating roles
   socket.on('register', (data) => {
     const { guestId, role } = data;
-    
+
     if (guestId) {
       const roomName = `guest_${guestId}`;
       socket.join(roomName);
