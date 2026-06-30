@@ -326,7 +326,21 @@ app.post('/api/system/update', (req, res) => {
 // React Router Fallback - Route all other requests to React app index.html
 if (fs.existsSync(clientDistPath)) {
   app.get('*', (req, res) => {
-    res.sendFile(path.join(clientDistPath, 'index.html'));
+    try {
+      const htmlPath = path.join(clientDistPath, 'index.html');
+      let htmlContent = fs.readFileSync(htmlPath, 'utf8');
+      
+      const config = ConfigStore.get();
+      const title = config.kioskTitle || 'Home Cafe';
+      
+      // Replace dynamic title and metadata
+      htmlContent = htmlContent.replace(/<title>.*?<\/title>/g, `<title>${title}</title>`);
+      htmlContent = htmlContent.replace(/content="Home Cafe"/g, `content="${title}"`);
+      
+      res.send(htmlContent);
+    } catch (e) {
+      res.sendFile(path.join(clientDistPath, 'index.html'));
+    }
   });
 }
 
