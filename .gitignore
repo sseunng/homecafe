@@ -3,7 +3,7 @@ node_modules/
 client/dist/
 
 # Local databases and logs (dynamically generated on launch)
-server/data/categories.json
+
 server/data/config.json
 server/data/orders.json
 server/data/update.log
