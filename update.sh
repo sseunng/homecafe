@@ -25,8 +25,14 @@ echo "============================================="
 echo "   [4/4] PM2 서비스 재시작 (PM2 Reload)"
 echo "============================================="
 if command -v pm2 &> /dev/null; then
-  # 무중단 reload 시도 후 실패 시 restart 실행
-  pm2 reload homecafe-kiosk || pm2 restart homecafe-kiosk || true
+  # pm2 list에서 homecafe-kiosk가 존재하는지 검사
+  if pm2 show homecafe-kiosk &> /dev/null; then
+    echo "PM2에서 homecafe-kiosk 서비스를 찾았습니다. 재시작(Reload)을 수행합니다."
+    pm2 reload homecafe-kiosk || pm2 restart homecafe-kiosk || true
+  else
+    echo "PM2에 등록된 homecafe-kiosk 서비스가 없습니다. 신규 기동(Start)을 수행합니다."
+    pm2 start server/server.js --name "homecafe-kiosk" || true
+  fi
 else
   echo "PM2 명령어를 찾을 수 없습니다. 수동으로 서비스를 재시작해 주세요."
 fi
