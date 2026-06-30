@@ -1155,13 +1155,13 @@ export default function AdminView({ onExit }) {
         {/* System Update PIN Modal Overlay */}
         {showUpdatePinModal && (
           <div className="nickname-modal-overlay" style={{ zIndex: 6000 }}>
-            <div className="nickname-modal-card" style={{ maxWidth: '320px' }}>
-              <div className="nickname-modal-title">업데이트 PIN 입력</div>
-              <p style={{ color: updatePinError ? 'var(--toss-red)' : 'var(--text-secondary)', fontSize: '13px', margin: '4px 0 16px 0' }}>
+            <div className="nickname-modal-card" style={{ maxWidth: '320px', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+              <div className="nickname-modal-title" style={{ textAlign: 'center' }}>업데이트 PIN 입력</div>
+              <p style={{ color: updatePinError ? 'var(--toss-red)' : 'var(--text-secondary)', fontSize: '13px', margin: '4px 0 16px 0', textAlign: 'center' }}>
                 {updatePinError ? '비밀번호가 올바르지 않습니다.' : '관리자 4자리 암호를 입력하세요.'}
               </p>
 
-              <div className="pin-dots" style={{ marginBottom: '24px' }}>
+              <div className="pin-dots" style={{ display: 'flex', justifyContent: 'center', marginBottom: '24px', width: '100%' }}>
                 {[...Array(4)].map((_, i) => (
                   <div
                     key={i}

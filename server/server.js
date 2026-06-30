@@ -297,22 +297,28 @@ app.post('/api/system/update', (req, res) => {
 
     console.log('Triggering system update script asynchronously...');
     const scriptPath = path.join(__dirname, '..', 'update.sh');
-
-    // Executing the shell script detached and logging to update.log
     const logPath = path.join(__dirname, 'data', 'update.log');
-    const logFd = fs.openSync(logPath, 'a');
-    fs.writeSync(logFd, `\n--- System Update Triggered at ${new Date().toISOString()} ---\n`);
+
+    // Appending a start marker safely via synchronous file operation
+    try {
+      fs.appendFileSync(logPath, `\n--- System Update Triggered at ${new Date().toISOString()} ---\n`);
+    } catch (e) {
+      console.warn('Failed to write to update.log:', e);
+    }
 
     try {
       fs.chmodSync(scriptPath, '755');
     } catch (chmodErr) {
-      fs.writeSync(logFd, `Warning: Failed to set execute permission on update.sh: ${chmodErr.message}\n`);
+      try {
+        fs.appendFileSync(logPath, `Warning: Failed to set execute permission on update.sh: ${chmodErr.message}\n`);
+      } catch (e) {}
     }
 
     const { spawn } = require('child_process');
-    const child = spawn('bash', [scriptPath], {
+    // Using stdio: 'ignore' and running update.sh via shell command wrapper avoids EPIPE / Bad file descriptor crashes when parent unrefs logFd.
+    const child = spawn('bash', ['-c', `bash ${scriptPath} >> ${logPath} 2>&1`], {
       detached: true,
-      stdio: ['ignore', logFd, logFd]
+      stdio: 'ignore'
     });
     child.unref();
 
