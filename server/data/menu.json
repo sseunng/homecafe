@@ -1,65 +1,5 @@
 [
   {
-    "id": "menu_1782796631391",
-    "name": "에스프레소",
-    "description": "입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
-    "category": "커피",
-    "image": "/uploads/menu-1782796631378-91444924.jpeg",
-    "options": [
-      {
-        "id": "opt_1782796591696_2kk9s",
-        "name": "샷",
-        "type": "select",
-        "choices": [
-          "솔로",
-          "도피오"
-        ],
-        "default": "솔로"
-      }
-    ],
-    "available": true
-  },
-  {
-    "id": "menu_1782796750615",
-    "name": "에스프레소 마키아또",
-    "description": "신선한 에스프레소 샷 위에 우유 거품을 살짝 얹은 커피 음료",
-    "category": "커피",
-    "image": "/uploads/menu-1782796750611-474686228.jpeg",
-    "options": [
-      {
-        "id": "opt_1782796732709_w553q",
-        "name": "샷",
-        "type": "select",
-        "choices": [
-          "솔로",
-          "도피오"
-        ],
-        "default": "솔로"
-      }
-    ],
-    "available": true
-  },
-  {
-    "id": "menu_1782797404000",
-    "name": "에스프레소 콘 파나",
-    "description": "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료",
-    "category": "커피",
-    "image": "/uploads/menu-1782797403975-422946812.jpeg",
-    "options": [
-      {
-        "id": "opt_1782797394966_2xkgu",
-        "name": "샷",
-        "type": "select",
-        "choices": [
-          "솔로",
-          "도피오"
-        ],
-        "default": "솔로"
-      }
-    ],
-    "available": true
-  },
-  {
     "id": "menu_1782798930342",
     "name": "카페 아메리카노",
     "description": "진한 에스프레소에 정수물을 더한 깊이와 풍미가 살아있는 커피",
@@ -96,6 +36,15 @@
         "default": "보통"
       }
     ],
+    "available": true
+  },
+  {
+    "id": "menu_1782821338859",
+    "name": "엑설런트 라떼",
+    "description": "달콤한 아이스크림과 에스프레소의 조화가 특징인 시그니처 라떼",
+    "category": "커피",
+    "image": "/uploads/menu-1782821338841-723872903.jpeg",
+    "options": [],
     "available": true
   },
   {
@@ -186,56 +135,6 @@
       },
       {
         "id": "opt_1782797985762_476ul",
-        "name": "당도 선택",
-        "type": "select",
-        "choices": [
-          "기본",
-          "덜 달게",
-          "시럽 추가"
-        ],
-        "default": "기본"
-      }
-    ],
-    "available": true
-  },
-  {
-    "id": "menu_1782798083246",
-    "name": "돌체 라떼",
-    "description": "부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
-    "category": "커피",
-    "image": "/uploads/menu-1782798083235-463110865.jpeg",
-    "options": [
-      {
-        "id": "opt_1782798072268_z6ncn",
-        "name": "온도",
-        "type": "select",
-        "choices": [
-          "핫",
-          "아이스"
-        ],
-        "default": "핫"
-      },
-      {
-        "id": "opt_1782798073265_sbxrc",
-        "name": "샷",
-        "type": "count",
-        "min": 1,
-        "max": 4,
-        "default": 1
-      },
-      {
-        "id": "opt_ice_dolcelatte",
-        "name": "얼음 양",
-        "type": "select",
-        "choices": [
-          "보통",
-          "적게",
-          "많이"
-        ],
-        "default": "보통"
-      },
-      {
-        "id": "opt_1782798075041_dszi1",
         "name": "당도 선택",
         "type": "select",
         "choices": [
@@ -396,7 +295,57 @@
         "default": "기본"
       }
     ],
-    "available": true
+    "available": false
+  },
+  {
+    "id": "menu_1782798083246",
+    "name": "돌체 라떼",
+    "description": "부드러운 돌체 시럽이 들어간 음료로 달콤하고 진한 커피 라떼",
+    "category": "커피",
+    "image": "/uploads/menu-1782798083235-463110865.jpeg",
+    "options": [
+      {
+        "id": "opt_1782798072268_z6ncn",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782798073265_sbxrc",
+        "name": "샷",
+        "type": "count",
+        "min": 1,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "id": "opt_ice_dolcelatte",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
+      },
+      {
+        "id": "opt_1782798075041_dszi1",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": false
   },
   {
     "id": "menu_1782798345084",
@@ -446,7 +395,67 @@
         "default": "기본"
       }
     ],
+    "available": false
+  },
+  {
+    "id": "menu_1782796631391",
+    "name": "에스프레소",
+    "description": "입안 가득히 커피와 달콤한 카라멜 향이 느껴지는 커피 음료",
+    "category": "커피",
+    "image": "/uploads/menu-1782796631378-91444924.jpeg",
+    "options": [
+      {
+        "id": "opt_1782796591696_2kk9s",
+        "name": "샷",
+        "type": "select",
+        "choices": [
+          "솔로",
+          "도피오"
+        ],
+        "default": "솔로"
+      }
+    ],
     "available": true
+  },
+  {
+    "id": "menu_1782796750615",
+    "name": "에스프레소 마키아또",
+    "description": "신선한 에스프레소 샷 위에 우유 거품을 살짝 얹은 커피 음료",
+    "category": "커피",
+    "image": "/uploads/menu-1782796750611-474686228.jpeg",
+    "options": [
+      {
+        "id": "opt_1782796732709_w553q",
+        "name": "샷",
+        "type": "select",
+        "choices": [
+          "솔로",
+          "도피오"
+        ],
+        "default": "솔로"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782797404000",
+    "name": "에스프레소 콘 파나",
+    "description": "신선한 에스프레소 샷에 풍부한 휘핑크림을 얹은 커피 음료",
+    "category": "커피",
+    "image": "/uploads/menu-1782797403975-422946812.jpeg",
+    "options": [
+      {
+        "id": "opt_1782797394966_2xkgu",
+        "name": "샷",
+        "type": "select",
+        "choices": [
+          "솔로",
+          "도피오"
+        ],
+        "default": "솔로"
+      }
+    ],
+    "available": false
   },
   {
     "id": "menu_1782817661260",
@@ -511,6 +520,415 @@
           "보통",
           "많이",
           "없음"
+        ],
+        "default": "보통"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820719832",
+    "name": "말차 프라푸치노",
+    "description": "깊고 진한 말차 본연의 맛과 향을\r\n시원하고 부드럽게 즐길 수 있는 프라푸치노",
+    "category": "프라푸치노 / 블렌디드",
+    "image": "/uploads/menu-1782820719818-747264869.jpeg",
+    "options": [
+      {
+        "id": "opt_1782820684738_3oqfd",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782819075542",
+    "name": "망고 블렌디드",
+    "description": "달콤한 망고가 들어간 신선한 블렌디드",
+    "category": "프라푸치노 / 블렌디드",
+    "image": "/uploads/menu-1782819075532-886326085.jpeg",
+    "options": [
+      {
+        "id": "opt_1782819039810_9vj9y",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782819462693",
+    "name": "얼그레이 바닐라 티 라떼",
+    "description": "티와 바닐라의 풍미가 조화로운 티 라떼 음료",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782819462683-624097222.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782819075558_nstvx",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782819439295_ccnvl",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782819542774",
+    "name": "클래식 밀크 티",
+    "description": "진하게 우려낸 블랙티의 풍미와 우유의 조화로움을 담아낸 밀크 티",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782819542760-882772056.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782819462698_t7c8e",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782819513306_c6qf5",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782819618573",
+    "name": "말차 라떼",
+    "description": "깊고 진한 말차 본연의 맛과 향을 부드럽게 즐길 수 있는 말차 라떼",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782819618557-681430736.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782819542781_hemgj",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782819605261_2l8t6",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782819722062",
+    "name": "잉글리쉬 브렉퍼스트 티",
+    "description": "진한 벌꿀향과 그윽한 몰트향이 특징인 블랙 티",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782819722034-946881347.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782819618577_nvom5",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782819858765",
+    "name": "얼 그레이 티",
+    "description": "꽃향 가득한 라벤더와 베르가못 향이 진한 홍차와 블렌딩된 향긋한 블랙 티",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782819858746-402783833.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782819722064_p8kl0",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782819935467",
+    "name": "잉글리쉬 애프터눈 티",
+    "description": "가볍고 부즈드러운 풍미의 블랙 티",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782819935448-275168392.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782819858803_fyi5f",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820029272",
+    "name": "루이보스 티",
+    "description": "은은하게 풍기는 나무 향과 고소한 맛, 그리고 뒤끝에 남는 기분 좋은 단맛의 티",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782820029249-354975098.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782819935468_z4s6u",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820051654",
+    "name": "루이보스 오렌지 티",
+    "description": "은은하게 풍기는 오렌지 향과 고소한 맛, 그리고 뒤끝에 남는 기분 좋은 단맛이 특징",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782820051634-50703504.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782820029280_lrbd3",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820085219",
+    "name": "루이보스 카라멜 티",
+    "description": "은은하게 풍기는 나무 향과 고소한 맛, 그리고 카라멜 향의 단맛이 특징인 티",
+    "category": "티 음료",
+    "image": "/uploads/menu-1782820085196-140460010.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782820051659_0kgge",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820360358",
+    "name": "핫 초콜릿",
+    "description": "깊고 진한 초콜릿과 부드러운 휘핑크림이 입안에서 사르르 녹는 초콜릿 음료",
+    "category": "기타",
+    "image": "/uploads/menu-1782820360317-160493636.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782820286623_5efg9",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782820350216_vrp0k",
+        "name": "샷",
+        "type": "count",
+        "min": 1,
+        "max": 4,
+        "default": 1
+      },
+      {
+        "id": "opt_1782820351732_btzrz",
+        "name": "휘핑 크림",
+        "type": "select",
+        "choices": [
+          "보통",
+          "많이",
+          "없음"
+        ],
+        "default": "보통"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820607567",
+    "name": "고구마 라떼",
+    "description": "기분 좋은 달콤함의 고구마 라떼",
+    "category": "기타",
+    "image": "/uploads/menu-1782820607562-437087958.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782820360355_ilwvg",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782820569802_2bjfk",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
+      },
+      {
+        "id": "opt_1782820570587_1me5x",
+        "name": "당도 선택",
+        "type": "select",
+        "choices": [
+          "기본",
+          "덜 달게",
+          "시럽 추가"
+        ],
+        "default": "기본"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820644550",
+    "name": "흑임자 라떼",
+    "description": "고소한 흑임자와 우유의 부드러움이 특징인 라떼",
+    "category": "기타",
+    "image": "/uploads/menu-1782820644538-976912975.jpeg",
+    "options": [
+      {
+        "id": "opt_temp_1782820607565_uq6ul",
+        "name": "온도",
+        "type": "select",
+        "choices": [
+          "핫",
+          "아이스"
+        ],
+        "default": "핫"
+      },
+      {
+        "id": "opt_1782820631854_b8aw0",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820197954",
+    "name": "체리 에이드",
+    "description": "달콤하고 상큼한 맛의 체리 에이드",
+    "category": "기타",
+    "image": "/uploads/menu-1782820197939-485626521.jpeg",
+    "options": [
+      {
+        "id": "opt_1782820162114_9kc2r",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
+      }
+    ],
+    "available": true
+  },
+  {
+    "id": "menu_1782820286621",
+    "name": "핑크 레몬에이드",
+    "description": "레몬의 상쾌함으로 리프레시 할 수 있는 음료",
+    "category": "기타",
+    "image": "/uploads/menu-1782820286601-852553698.jpeg",
+    "options": [
+      {
+        "id": "opt_1782820281106_2rcdf",
+        "name": "얼음 양",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
         ],
         "default": "보통"
       }
