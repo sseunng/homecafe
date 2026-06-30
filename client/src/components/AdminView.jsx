@@ -494,12 +494,12 @@ export default function AdminView({ onExit }) {
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ pin: nextPin })
           });
-          
+
           const data = await res.json();
           if (!res.ok) {
             throw new Error(data.error || '업데이트 요청 실패');
           }
-          
+
           alert(data.message || '업데이트가 시작되었습니다. 약 1분 후 페이지를 새로고침해 주세요.');
           setShowUpdatePinModal(false);
           setUpdatePin('');
@@ -1084,7 +1084,7 @@ export default function AdminView({ onExit }) {
           <div style={{ backgroundColor: 'var(--bg-secondary)', border: '1px solid var(--border-color)', borderRadius: 'var(--radius-md)', padding: '16px' }}>
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '16px' }}>
               <div style={{ fontWeight: '800', fontSize: '16px' }}>시스템 설정</div>
-              <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>버전 v1.2.0</span>
+              <span style={{ fontSize: '12px', color: 'var(--text-tertiary)' }}>버전 v1.3.0</span>
             </div>
 
             <form onSubmit={handleSaveConfig} style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -1102,7 +1102,7 @@ export default function AdminView({ onExit }) {
 
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
                 <div className="form-group">
-                  <label>새 관리자 비밀번호 (숫자 4자리)</label>
+                  <label>새 비밀번호 (숫자 4자리)</label>
                   <input
                     type="password"
                     maxLength="4"
@@ -1160,11 +1160,11 @@ export default function AdminView({ onExit }) {
               <p style={{ color: updatePinError ? 'var(--toss-red)' : 'var(--text-secondary)', fontSize: '13px', margin: '4px 0 16px 0' }}>
                 {updatePinError ? '비밀번호가 올바르지 않습니다.' : '관리자 4자리 암호를 입력하세요.'}
               </p>
-              
+
               <div className="pin-dots" style={{ marginBottom: '24px' }}>
                 {[...Array(4)].map((_, i) => (
-                  <div 
-                    key={i} 
+                  <div
+                    key={i}
                     className={`pin-dot ${i < updatePin.length ? 'active' : ''}`}
                     style={{ borderColor: updatePinError ? 'var(--toss-red)' : 'var(--border-color)' }}
                   />
