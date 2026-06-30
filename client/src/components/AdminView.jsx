@@ -1137,7 +1137,6 @@ export default function AdminView({ onExit }) {
                     className="switch-container"
                     onClick={() => handleToggleAvailability(item.id, item.available)}
                   >
-                    <span className="switch-label">{item.available ? '판매중' : '품절'}</span>
                     <div className={`switch-track ${item.available ? 'active' : ''}`}>
                       <div className="switch-thumb"></div>
                     </div>
