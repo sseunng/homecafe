@@ -130,6 +130,20 @@ app.delete('/api/menu/:id', (req, res) => {
   }
 });
 
+app.post('/api/menu/reorder', (req, res) => {
+  try {
+    const { menuIds } = req.body;
+    if (!menuIds || !Array.isArray(menuIds)) {
+      return res.status(400).json({ error: 'menuIds array is required' });
+    }
+    const updated = MenuStore.reorder(menuIds);
+    io.emit('menu_updated', updated);
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to reorder menu items' });
+  }
+});
+
 // 1.5. Categories API
 app.get('/api/categories', (req, res) => {
   try {
@@ -162,6 +176,20 @@ app.delete('/api/categories/:name', (req, res) => {
     res.json({ success: true, categories: updated });
   } catch (error) {
     res.status(500).json({ error: 'Failed to delete category' });
+  }
+});
+
+app.post('/api/categories/reorder', (req, res) => {
+  try {
+    const { categories } = req.body;
+    if (!categories || !Array.isArray(categories)) {
+      return res.status(400).json({ error: 'categories array is required' });
+    }
+    const updated = CategoriesStore.reorder(categories);
+    io.emit('categories_updated', updated);
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ error: 'Failed to reorder categories' });
   }
 });
 

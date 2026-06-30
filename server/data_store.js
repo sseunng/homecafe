@@ -105,6 +105,19 @@ const MenuStore = {
       writeJSON(MENU_FILE, list);
     }
     return item;
+  },
+
+  reorder: (orderedIds) => {
+    const list = readJSON(MENU_FILE, DEFAULT_MENU);
+    const sorted = [...list].sort((a, b) => {
+      const idxA = orderedIds.indexOf(a.id);
+      const idxB = orderedIds.indexOf(b.id);
+      const valA = idxA === -1 ? 9999 : idxA;
+      const valB = idxB === -1 ? 9999 : idxB;
+      return valA - valB;
+    });
+    writeJSON(MENU_FILE, sorted);
+    return sorted;
   }
 };
 
@@ -196,6 +209,12 @@ const CategoriesStore = {
     const updated = list.filter(item => item !== cleanedName);
     writeJSON(CATEGORIES_FILE, updated);
     return updated;
+  },
+
+  reorder: (orderedList) => {
+    const cleaned = orderedList.map(name => name.replace(/[^\w\sㄱ-힣]/g, '').trim());
+    writeJSON(CATEGORIES_FILE, cleaned);
+    return cleaned;
   }
 };
 

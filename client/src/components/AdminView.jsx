@@ -481,6 +481,64 @@ export default function AdminView({ onExit }) {
     }
   };
 
+  const moveCategory = async (cat, direction) => {
+    const index = categories.indexOf(cat);
+    if (index === -1) return;
+
+    const newCategories = [...categories];
+    if (direction === 'up' && index > 0) {
+      newCategories[index] = newCategories[index - 1];
+      newCategories[index - 1] = cat;
+    } else if (direction === 'down' && index < categories.length - 1) {
+      newCategories[index] = newCategories[index + 1];
+      newCategories[index + 1] = cat;
+    } else {
+      return;
+    }
+
+    setCategories(newCategories);
+    try {
+      const res = await fetch(getApiUrl('/api/categories/reorder'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ categories: newCategories })
+      });
+      if (!res.ok) throw new Error('Reorder failed');
+    } catch (e) {
+      alert('카테고리 순서 변경에 실패했습니다.');
+      fetchCategories();
+    }
+  };
+
+  const moveMenuItem = async (id, direction) => {
+    const index = menu.findIndex(item => item.id === id);
+    if (index === -1) return;
+
+    const newMenu = [...menu];
+    if (direction === 'up' && index > 0) {
+      newMenu[index] = newMenu[index - 1];
+      newMenu[index - 1] = menu[index];
+    } else if (direction === 'down' && index < menu.length - 1) {
+      newMenu[index] = newMenu[index + 1];
+      newMenu[index + 1] = menu[index];
+    } else {
+      return;
+    }
+
+    setMenu(newMenu);
+    try {
+      const res = await fetch(getApiUrl('/api/menu/reorder'), {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ menuIds: newMenu.map(item => item.id) })
+      });
+      if (!res.ok) throw new Error('Reorder failed');
+    } catch (e) {
+      alert('메뉴 순서 변경에 실패했습니다.');
+      fetchMenu();
+    }
+  };
+
   const handleUpdatePinKeyPress = async (num) => {
     setUpdatePinError(false);
     if (updatePin.length < 4) {
@@ -827,31 +885,49 @@ export default function AdminView({ onExit }) {
                 </button>
               </form>
 
-              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px' }}>
-                {categories.map(cat => (
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                {categories.map((cat, idx) => (
                   <div
                     key={cat}
                     style={{
-                      display: 'inline-flex',
+                      display: 'flex',
+                      justifyContent: 'space-between',
                       alignItems: 'center',
-                      gap: '6px',
                       backgroundColor: 'var(--bg-primary)',
-                      padding: '6px 12px',
-                      borderRadius: '30px',
-                      border: '1px solid var(--border-color)',
-                      fontSize: '13px',
-                      fontWeight: '600'
+                      padding: '10px 14px',
+                      borderRadius: 'var(--radius-sm)',
+                      border: '1px solid var(--border-color)'
                     }}
                   >
-                    <span>{cat}</span>
-                    <button
-                      type="button"
-                      style={{ color: 'var(--toss-red)', fontWeight: 'bold', fontSize: '12px' }}
-                      onClick={() => handleDeleteCategory(cat)}
-                      title="카테고리 삭제"
-                    >
-                      ×
-                    </button>
+                    <span style={{ fontSize: '13px', fontWeight: '600' }}>{cat}</span>
+                    <div style={{ display: 'flex', gap: '6px', alignItems: 'center' }}>
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        style={{ padding: '4px 8px', fontSize: '11px', borderRadius: '4px', cursor: idx === 0 ? 'not-allowed' : 'pointer' }}
+                        disabled={idx === 0}
+                        onClick={() => moveCategory(cat, 'up')}
+                      >
+                        ▲
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-secondary"
+                        style={{ padding: '4px 8px', fontSize: '11px', borderRadius: '4px', cursor: idx === categories.length - 1 ? 'not-allowed' : 'pointer' }}
+                        disabled={idx === categories.length - 1}
+                        onClick={() => moveCategory(cat, 'down')}
+                      >
+                        ▼
+                      </button>
+                      <button
+                        type="button"
+                        className="btn-danger"
+                        style={{ padding: '4px 8px', fontSize: '11px', borderRadius: '4px', backgroundColor: 'var(--toss-red)', color: '#fff', border: 'none', cursor: 'pointer' }}
+                        onClick={() => handleDeleteCategory(cat)}
+                      >
+                        삭제
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -1063,6 +1139,28 @@ export default function AdminView({ onExit }) {
                     <div className={`switch-track ${item.available ? 'active' : ''}`}>
                       <div className="switch-thumb"></div>
                     </div>
+                  </div>
+
+                  {/* Reorder Buttons (▲/▼) */}
+                  <div style={{ display: 'flex', gap: '4px', marginLeft: '12px' }}>
+                    <button
+                      type="button"
+                      className="btn-secondary"
+                      style={{ padding: '4px 8px', fontSize: '11px', borderRadius: '4px', cursor: 'pointer' }}
+                      onClick={() => moveMenuItem(item.id, 'up')}
+                      title="위로 이동"
+                    >
+                      ▲
+                    </button>
+                    <button
+                      type="button"
+                      className="btn-secondary"
+                      style={{ padding: '4px 8px', fontSize: '11px', borderRadius: '4px', cursor: 'pointer' }}
+                      onClick={() => moveMenuItem(item.id, 'down')}
+                      title="아래로 이동"
+                    >
+                      ▼
+                    </button>
                   </div>
 
                   <button
