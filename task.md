@@ -14,8 +14,10 @@
   - [x] Write Toss Order design styling in `client/src/App.css` (modern HSL palette, transitions, custom buttons).
   - [x] Implement `client/src/context/SocketContext.jsx` for socket state management.
   - [x] Write Guest View `client/src/components/GuestView.jsx` with cart, bottom sheets, order status.
-  - [x] Modify `server/data/menu.json` to rename "샷 추가" to "샷", change min: 1, default: 1
-- [/] Modify `client/src/components/AdminView.jsx` to update preset options and include temperature default options controls, menu editor.
+  - [x] Modify `server/data_store.js` to calculate popular menus and expose `popularRank`
+- [x] Modify `server/server.js` to broadcast menu updates on order completion
+- [x] Add Toss-style popular badge styles to `client/src/App.css`
+- [/] Implement `compareMenuItems` sorting helper and render ranking badges in `client/src/components/GuestView.jsx`.
   - [x] Connect components in `client/src/App.jsx`.
 - [x] **Phase 4: Monorepo Integration & Verification**
   - [x] Test client-server communication locally.

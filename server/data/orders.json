@@ -5,8 +5,8 @@
     "guestId": "test_guest",
     "items": [
       {
-        "menuId": "menu_1",
-        "name": "아메리카노",
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
         "quantity": 2,
         "options": "Ice, 기본"
       }
@@ -21,8 +21,8 @@
     "nickname": "",
     "items": [
       {
-        "menuId": "menu_1",
-        "name": "아메리카노",
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
         "quantity": 1,
         "options": "아이스, 당도: 기본"
       }

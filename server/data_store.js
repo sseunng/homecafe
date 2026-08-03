@@ -77,10 +77,41 @@ function writeJSON(filePath, data) {
   }
 }
 
+// Helper to get top 3 popular menu IDs based on completed orders
+function getPopularMenuIds() {
+  const orders = readJSON(ORDERS_FILE, []);
+  const completedOrders = orders.filter(o => o.status === 'completed' || o.status === 'picked_up');
+  
+  const counts = {};
+  completedOrders.forEach(order => {
+    if (order.items && Array.isArray(order.items)) {
+      order.items.forEach(item => {
+        if (item.menuId) {
+          counts[item.menuId] = (counts[item.menuId] || 0) + (item.quantity || 0);
+        }
+      });
+    }
+  });
+
+  const sorted = Object.entries(counts)
+    .filter(([_, qty]) => qty > 0)
+    .sort((a, b) => b[1] - a[1]);
+
+  return sorted.slice(0, 3).map(([menuId, _]) => menuId);
+}
+
 // Menu Store Methods
 const MenuStore = {
   getAll: () => {
-    return readJSON(MENU_FILE, DEFAULT_MENU);
+    const list = readJSON(MENU_FILE, DEFAULT_MENU);
+    const popularIds = getPopularMenuIds();
+    return list.map(item => {
+      const idx = popularIds.indexOf(item.id);
+      return {
+        ...item,
+        popularRank: idx !== -1 ? idx + 1 : null
+      };
+    });
   },
   
   add: (item) => {

@@ -323,6 +323,11 @@ app.patch('/api/orders/:id/status', (req, res) => {
       });
     }
 
+    // Broadcast updated menu to all clients if popularity rankings changed
+    if (status === 'completed' || status === 'picked_up' || status === 'cancelled') {
+      io.emit('menu_updated', MenuStore.getAll());
+    }
+
     res.json(updatedOrder);
   } catch (error) {
     res.status(500).json({ error: 'Failed to update order status' });

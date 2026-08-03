@@ -388,19 +388,42 @@ export default function GuestView({ onAdminEnter }) {
     ? menu
     : menu.filter(item => cleanCategory(item.category) === cleanCategory(selectedCategory));
 
-  // Sort and group menu items if '전체' is selected
-  const getSortedMenu = () => {
-    if (selectedCategory !== '전체') {
-      return filteredMenu;
-    }
-    return [...filteredMenu].sort((a, b) => {
+  const compareMenuItems = (a, b) => {
+    // 1. 카테고리가 다르고 전체 카테고리 보기 모드일 때는 카테고리 순서 우선
+    if (selectedCategory === '전체' && a.category !== b.category) {
       const indexA = categories.findIndex(cat => cleanCategory(cat) === cleanCategory(a.category));
       const indexB = categories.findIndex(cat => cleanCategory(cat) === cleanCategory(b.category));
-      if (indexA === -1 && indexB === -1) return 0;
-      if (indexA === -1) return 1;
-      if (indexB === -1) return -1;
-      return indexA - indexB;
-    });
+      const valA = indexA === -1 ? 9999 : indexA;
+      const valB = indexB === -1 ? 9999 : indexB;
+      return valA - valB;
+    }
+
+    // 2. 카테고리가 같거나, 특정 카테고리 보기 모드일 때는 카테고리 내부 정렬 규칙 적용
+
+    // 2-1. 품절 여부 비교 (품절 메뉴는 최하단)
+    if (a.available !== b.available) {
+      return a.available ? -1 : 1;
+    }
+
+    // 2-2. 인기 메뉴 여부 비교 (인기 메뉴는 최상단)
+    const hasRankA = a.popularRank !== undefined && a.popularRank !== null;
+    const hasRankB = b.popularRank !== undefined && b.popularRank !== null;
+
+    if (hasRankA && !hasRankB) return -1;
+    if (!hasRankA && hasRankB) return 1;
+    if (hasRankA && hasRankB) {
+      return a.popularRank - b.popularRank;
+    }
+
+    // 2-3. 기본 순서 유지 (원래 menu 배열에서의 인덱스 기준 정렬)
+    const indexInMenuA = menu.findIndex(item => item.id === a.id);
+    const indexInMenuB = menu.findIndex(item => item.id === b.id);
+    return indexInMenuA - indexInMenuB;
+  };
+
+  // Sort and group menu items
+  const getSortedMenu = () => {
+    return [...filteredMenu].sort(compareMenuItems);
   };
 
   const sortedMenuItems = getSortedMenu();
@@ -494,6 +517,13 @@ export default function GuestView({ onAdminEnter }) {
                             <div className="sold-out-overlay">품 절 (Sold Out)</div>
                           )}
                           <div className="menu-card-image-container">
+                            {item.popularRank && (
+                              <div className={`popular-badge popular-badge-${item.popularRank}`}>
+                                {item.popularRank === 1 && '👑 1위'}
+                                {item.popularRank === 2 && '🥈 2위'}
+                                {item.popularRank === 3 && '🥉 3위'}
+                              </div>
+                            )}
                             {item.image ? (
                               <img 
                                 src={getApiUrl(item.image)} 
