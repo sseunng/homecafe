@@ -464,3 +464,52 @@ server.listen(PORT, '0.0.0.0', () => {
   console.log(`📱 Available on local network at http://192.168.1.38:${PORT} (if host IP is correct)`);
   console.log(`-----------------------------------------------------`);
 });
+
+// -------------------------------------------------------------
+// Automated Midnight Backup Scheduler
+// -------------------------------------------------------------
+const { exec } = require('child_process');
+
+function runBackupProcess() {
+  console.log('[Backup] Starting scheduled midnight backup check...');
+  
+  const checkCmd = 'git add server/data/ server/public/uploads/ && git diff --staged --quiet';
+  const projectRoot = path.join(__dirname, '..');
+  
+  exec(checkCmd, { cwd: projectRoot }, (error) => {
+    if (error && error.code === 1) {
+      console.log('[Backup] Changes detected in database or uploads. Committing and pushing...');
+      const dateStr = new Date().toISOString().split('T')[0];
+      const commitCmd = `git commit -m "chore(backup): auto backup data and uploads at ${dateStr}" && git push origin main`;
+      
+      exec(commitCmd, { cwd: projectRoot }, (errPush) => {
+        if (errPush) {
+          console.error('[Backup] Failed to commit and push backup:', errPush);
+        } else {
+          console.log('[Backup] Auto backup and push completed successfully.');
+        }
+      });
+    } else if (!error) {
+      console.log('[Backup] No changes detected in data or uploads. Skipping backup.');
+      exec('git reset', { cwd: projectRoot });
+    } else {
+      console.error('[Backup] Error checking for changes:', error);
+    }
+  });
+}
+
+function scheduleNextMidnightBackup() {
+  const now = new Date();
+  const midnight = new Date(now.getFullYear(), now.getMonth(), now.getDate() + 1, 0, 0, 0);
+  const msToMidnight = midnight.getTime() - now.getTime();
+  
+  console.log(`[Backup] Next auto-backup scheduled in ${(msToMidnight / 1000 / 60 / 60).toFixed(2)} hours (at midnight).`);
+  
+  setTimeout(() => {
+    runBackupProcess();
+    scheduleNextMidnightBackup();
+  }, msToMidnight);
+}
+
+// Start backup scheduler
+scheduleNextMidnightBackup();
