@@ -82,11 +82,15 @@ function getPopularMenuIds() {
   const orders = readJSON(ORDERS_FILE, []);
   const completedOrders = orders.filter(o => o.status === 'completed' || o.status === 'picked_up');
   
+  // 현재 존재하는 메뉴 ID만 필터링하기 위해 MENU_FILE 로드
+  const menuList = readJSON(MENU_FILE, DEFAULT_MENU);
+  const activeMenuIds = new Set(menuList.map(item => item.id));
+
   const counts = {};
   completedOrders.forEach(order => {
     if (order.items && Array.isArray(order.items)) {
       order.items.forEach(item => {
-        if (item.menuId) {
+        if (item.menuId && activeMenuIds.has(item.menuId)) {
           counts[item.menuId] = (counts[item.menuId] || 0) + (item.quantity || 0);
         }
       });

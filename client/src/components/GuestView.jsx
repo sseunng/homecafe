@@ -517,13 +517,6 @@ export default function GuestView({ onAdminEnter }) {
                             <div className="sold-out-overlay">품 절 (Sold Out)</div>
                           )}
                           <div className="menu-card-image-container">
-                            {item.popularRank && (
-                              <div className={`popular-badge popular-badge-${item.popularRank}`}>
-                                {item.popularRank === 1 && '👑 1위'}
-                                {item.popularRank === 2 && '🥈 2위'}
-                                {item.popularRank === 3 && '🥉 3위'}
-                              </div>
-                            )}
                             {item.image ? (
                               <img 
                                 src={getApiUrl(item.image)} 
@@ -544,7 +537,16 @@ export default function GuestView({ onAdminEnter }) {
                           </div>
 
                           <div className="menu-card-info">
-                            <div className="menu-card-name">{item.name}</div>
+                            <div className="menu-card-name" style={{ display: 'flex', alignItems: 'center' }}>
+                              <span>{item.name}</span>
+                              {item.popularRank && (
+                                <span className={`popular-badge popular-badge-${item.popularRank}`}>
+                                  {item.popularRank === 1 && '👑 1위'}
+                                  {item.popularRank === 2 && '🥈 2위'}
+                                  {item.popularRank === 3 && '🥉 3위'}
+                                </span>
+                              )}
+                            </div>
                             {item.description && (
                               <div className="menu-card-description">{item.description}</div>
                             )}
