@@ -931,7 +931,7 @@
     "name": "엑설런트 라떼",
     "description": "달콤한 아이스크림과 에스프레소의 조화가 특징인 시그니처 라떼",
     "category": "시그니쳐",
-    "image": "/uploads/menu-1784286909406-875541768.jpeg",
+    "image": "/uploads/excellent_latte.png",
     "options": [
       {
         "id": "opt_1784286897849_3m55r",
@@ -960,7 +960,7 @@
     "name": "토마토 바질 스파클링",
     "description": "상큼하고 달콤한 수제 토마토청과 향긋한 바질 시럽이 조화로운 스파클링 음료",
     "category": "시그니쳐",
-    "image": "/uploads/menu-1784287078623-636226505.jpeg",
+    "image": "/uploads/tomato_basil_sparkling.png",
     "options": [
       {
         "id": "opt_1784286987633_ja317",
@@ -992,7 +992,7 @@
     "name": "화이트 발사믹 소다",
     "description": "깔끔한 단맛과 상큼함이 특징인 스파클링 음료",
     "category": "시그니쳐",
-    "image": "/uploads/menu-1784287117011-298568071.jpeg",
+    "image": "/uploads/white_balsamic_soda.png",
     "options": [
       {
         "id": "opt_1784287107778_vydya",
