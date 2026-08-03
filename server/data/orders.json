@@ -5,8 +5,8 @@
     "guestId": "test_guest",
     "items": [
       {
-        "menuId": "menu_1782798930342",
-        "name": "카페 아메리카노",
+        "menuId": "menu_1",
+        "name": "아메리카노",
         "quantity": 2,
         "options": "Ice, 기본"
       }
@@ -21,13 +21,349 @@
     "nickname": "",
     "items": [
       {
-        "menuId": "menu_1782798930342",
-        "name": "카페 아메리카노",
+        "menuId": "menu_1",
+        "name": "아메리카노",
         "quantity": 1,
         "options": "아이스, 당도: 기본"
       }
     ],
     "status": "picked_up",
     "createdAt": "2026-06-26T16:02:29.540Z"
+  },
+  {
+    "id": "order_1782827402135_xn01fpt0i",
+    "orderNumber": 1,
+    "guestId": "guest_f17ihgsh7fqrxjrgo21ea",
+    "nickname": "",
+    "items": [
+      {
+        "menuId": "menu_1782796631391",
+        "name": "에스프레소",
+        "quantity": 1,
+        "options": "샷: 솔로"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-06-30T13:50:02.134Z"
+  },
+  {
+    "id": "order_1783670815290_llir9lizo",
+    "orderNumber": 1,
+    "guestId": "guest_jf03vcts35k51mvej2jkn",
+    "nickname": "진절머리",
+    "items": [
+      {
+        "menuId": "menu_1782819462693",
+        "name": "얼그레이 바닐라 티 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 당도 선택: 기본"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-10T08:06:55.290Z"
+  },
+  {
+    "id": "order_1783680333165_utc1sebip",
+    "orderNumber": 2,
+    "guestId": "guest_11gx9urs657xy3884ab5q",
+    "nickname": "Lia",
+    "items": [
+      {
+        "menuId": "menu_1782820051654",
+        "name": "루이보스 오렌지 티",
+        "quantity": 1,
+        "options": "온도: 핫"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-10T10:45:33.165Z"
+  },
+  {
+    "id": "order_1784343116918_2egfmtp7i",
+    "orderNumber": 1,
+    "guestId": "guest_0fk6hb9sf4rl5ky6pq8wqne",
+    "nickname": "마스",
+    "items": [
+      {
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+4), 얼음 양: 보통"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-18T02:51:56.918Z"
+  },
+  {
+    "id": "order_1784346429658_ukod7hz2t",
+    "orderNumber": 2,
+    "guestId": "guest_dpu7u69fo3gboeihktjmgf",
+    "nickname": "로키",
+    "items": [
+      {
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+2), 얼음 양: 보통"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-18T03:47:09.658Z"
+  },
+  {
+    "id": "order_1784347506095_t51et6ihr",
+    "orderNumber": 3,
+    "guestId": "guest_bf3x3vi2fs6ueecn7bi26",
+    "nickname": "애플쓰는 빅스비",
+    "items": [
+      {
+        "menuId": "menu_1782798012173",
+        "name": "바닐라 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-18T04:05:06.095Z"
+  },
+  {
+    "id": "order_1784347788982_87mtnw9hz",
+    "orderNumber": 4,
+    "guestId": "guest_oqavjco8hp91b0ds04zse4",
+    "nickname": "후니",
+    "items": [
+      {
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-18T04:09:48.982Z"
+  },
+  {
+    "id": "order_1784347834976_kqawau3m1",
+    "orderNumber": 5,
+    "guestId": "guest_0fk6hb9sf4rl5ky6pq8wqne",
+    "nickname": "마스",
+    "items": [
+      {
+        "menuId": "menu_1782796631391",
+        "name": "에스프레소",
+        "quantity": 1,
+        "options": "샷: 도피오"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-18T04:10:34.976Z"
+  },
+  {
+    "id": "order_1784347907302_gx7msfkjr",
+    "orderNumber": 6,
+    "guestId": "guest_fesiw4wu9mblwp754hjcy7",
+    "nickname": "지브브",
+    "items": [
+      {
+        "menuId": "menu_1782819462693",
+        "name": "얼그레이 바닐라 티 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 당도 선택: 덜 달게"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-07-18T04:11:47.302Z"
+  },
+  {
+    "id": "order_1784361709246_7ulzi4ipy",
+    "orderNumber": 7,
+    "guestId": "guest_9218dn4t6al51z9bisc6j",
+    "nickname": "로키",
+    "items": [
+      {
+        "menuId": "menu_1782798161693",
+        "name": "카페 모카",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 적게, 당도 선택: 덜 달게, 휘핑 크림: 보통"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-18T08:01:49.246Z"
+  },
+  {
+    "id": "order_1784361850011_vfl60qicm",
+    "orderNumber": 8,
+    "guestId": "guest_oqavjco8hp91b0ds04zse4",
+    "nickname": "후니",
+    "items": [
+      {
+        "menuId": "menu_1782798083246",
+        "name": "돌체 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-18T08:04:10.011Z"
+  },
+  {
+    "id": "order_1784377862257_9pubi24wk",
+    "orderNumber": 9,
+    "guestId": "guest_fesiw4wu9mblwp754hjcy7",
+    "nickname": "지부",
+    "items": [
+      {
+        "menuId": "menu_1784287117025",
+        "name": "화이트 발사믹 소다",
+        "quantity": 1,
+        "options": "얼음 양: 적게"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-18T12:31:02.257Z"
+  },
+  {
+    "id": "order_1784377923028_up5kk48w2",
+    "orderNumber": 10,
+    "guestId": "guest_u8dip0k5czfoscm8hcl0i",
+    "nickname": "리스",
+    "items": [
+      {
+        "menuId": "menu_1782820719832",
+        "name": "말차 프라푸치노",
+        "quantity": 1,
+        "options": "당도 선택: 덜 달게"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-18T12:32:03.028Z"
+  },
+  {
+    "id": "order_1784377923103_audsrz81u",
+    "orderNumber": 11,
+    "guestId": "guest_gzb7qx4kr9ak162ap681yj",
+    "nickname": "",
+    "items": [
+      {
+        "menuId": "menu_1784286909414",
+        "name": "엑설런트 라떼",
+        "quantity": 1,
+        "options": "샷 (+1), 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-18T12:32:03.102Z"
+  },
+  {
+    "id": "order_1784378595020_spr35kk95",
+    "orderNumber": 12,
+    "guestId": "guest_oqavjco8hp91b0ds04zse4",
+    "nickname": "후니 로키",
+    "items": [
+      {
+        "menuId": "menu_1784287078644",
+        "name": "토마토 바질 스파클링",
+        "quantity": 1,
+        "options": "얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-18T12:43:15.020Z"
+  },
+  {
+    "id": "order_1784378626874_z6occoqxy",
+    "orderNumber": 13,
+    "guestId": "guest_0fk6hb9sf4rl5ky6pq8wqne",
+    "nickname": "마스",
+    "items": [
+      {
+        "menuId": "menu_1782819935467",
+        "name": "잉글리쉬 애프터눈 티",
+        "quantity": 1,
+        "options": "온도: 핫"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-18T12:43:46.874Z"
+  },
+  {
+    "id": "order_1784950631045_7dskyoiqo",
+    "orderNumber": 1,
+    "guestId": "guest_lc1t35bjm3d6cg05r5tveo",
+    "nickname": "덕멍",
+    "items": [
+      {
+        "menuId": "menu_1782798012173",
+        "name": "바닐라 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-25T03:37:11.045Z"
+  },
+  {
+    "id": "order_1784952274617_uf8h5jno7",
+    "orderNumber": 2,
+    "guestId": "guest_c9aqq2bh628vf7rof2c5q",
+    "nickname": "김태현",
+    "items": [
+      {
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 적게"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-25T04:04:34.617Z"
+  },
+  {
+    "id": "order_1785313625061_nbvx12pzd",
+    "orderNumber": 1,
+    "guestId": "guest_51n1s55ghhsqjr8830y47",
+    "nickname": "으먕쏘",
+    "items": [
+      {
+        "menuId": "menu_1784287078644",
+        "name": "토마토 바질 스파클링",
+        "quantity": 1,
+        "options": "얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-29T08:27:05.061Z"
+  },
+  {
+    "id": "order_1785313626499_fz46jf0gf",
+    "orderNumber": 2,
+    "guestId": "guest_zgtxfaefro6zupqek9wic",
+    "nickname": "양갱",
+    "items": [
+      {
+        "menuId": "menu_1784287078644",
+        "name": "토마토 바질 스파클링",
+        "quantity": 1,
+        "options": "얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-29T08:27:06.498Z"
+  },
+  {
+    "id": "order_1785313631509_ww4iiq8z6",
+    "orderNumber": 3,
+    "guestId": "guest_n6piwaiemja5giu2rbujk3",
+    "nickname": "zi영공zoo",
+    "items": [
+      {
+        "menuId": "menu_1784287078644",
+        "name": "토마토 바질 스파클링",
+        "quantity": 1,
+        "options": "얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-07-29T08:27:11.509Z"
   }
 ]
