@@ -365,5 +365,21 @@
     ],
     "status": "completed",
     "createdAt": "2026-07-29T08:27:11.509Z"
+  },
+  {
+    "id": "order_1786157985059_q7xpqk62c",
+    "orderNumber": 1,
+    "guestId": "guest_pd3lcjvijysojawigfz",
+    "nickname": "혜신",
+    "items": [
+      {
+        "menuId": "menu_1784287117025",
+        "name": "화이트 발사믹 소다",
+        "quantity": 1,
+        "options": "얼음 양: 보통"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-08-08T02:59:45.059Z"
   }
 ]
