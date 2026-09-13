@@ -381,5 +381,37 @@
     ],
     "status": "completed",
     "createdAt": "2026-08-08T02:59:45.059Z"
+  },
+  {
+    "id": "order_1789179627690_eddq5ddqc",
+    "orderNumber": 1,
+    "guestId": "guest_7d3fsgdy6mkk04e8hvon9k",
+    "nickname": "도곰",
+    "items": [
+      {
+        "menuId": "menu_1784286909414",
+        "name": "엑설런트 라떼",
+        "quantity": 1,
+        "options": "샷 (+1), 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-09-12T02:20:27.690Z"
+  },
+  {
+    "id": "order_1789179638057_6w8p3vaek",
+    "orderNumber": 2,
+    "guestId": "guest_80qodspt29yeap3d0uc3o",
+    "nickname": "",
+    "items": [
+      {
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+2), 얼음 양: 보통"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-09-12T02:20:38.057Z"
   }
 ]
