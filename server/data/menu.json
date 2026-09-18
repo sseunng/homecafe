@@ -619,7 +619,7 @@
         "default": "기본"
       }
     ],
-    "available": true
+    "available": false
   },
   {
     "id": "menu_1782819618573",
@@ -985,7 +985,7 @@
         "default": "기본"
       }
     ],
-    "available": false
+    "available": true
   },
   {
     "id": "menu_1784287117025",

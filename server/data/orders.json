@@ -187,7 +187,7 @@
         "options": "온도: 아이스, 샷 (+1), 얼음 양: 적게, 당도 선택: 덜 달게, 휘핑 크림: 보통"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-18T08:01:49.246Z"
   },
   {
@@ -203,7 +203,7 @@
         "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통, 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-18T08:04:10.011Z"
   },
   {
@@ -219,7 +219,7 @@
         "options": "얼음 양: 적게"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-18T12:31:02.257Z"
   },
   {
@@ -235,7 +235,7 @@
         "options": "당도 선택: 덜 달게"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-18T12:32:03.028Z"
   },
   {
@@ -251,7 +251,7 @@
         "options": "샷 (+1), 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-18T12:32:03.102Z"
   },
   {
@@ -267,7 +267,7 @@
         "options": "얼음 양: 보통, 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-18T12:43:15.020Z"
   },
   {
@@ -283,7 +283,7 @@
         "options": "온도: 핫"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-18T12:43:46.874Z"
   },
   {
@@ -299,7 +299,7 @@
         "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통, 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-25T03:37:11.045Z"
   },
   {
@@ -315,7 +315,7 @@
         "options": "온도: 아이스, 샷 (+1), 얼음 양: 적게"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-25T04:04:34.617Z"
   },
   {
@@ -331,7 +331,7 @@
         "options": "얼음 양: 보통, 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-29T08:27:05.061Z"
   },
   {
@@ -347,7 +347,7 @@
         "options": "얼음 양: 보통, 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-29T08:27:06.498Z"
   },
   {
@@ -363,7 +363,7 @@
         "options": "얼음 양: 보통, 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-07-29T08:27:11.509Z"
   },
   {
@@ -379,7 +379,7 @@
         "options": "얼음 양: 보통"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-08-08T02:59:45.059Z"
   },
   {
@@ -395,7 +395,7 @@
         "options": "샷 (+1), 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-09-12T02:20:27.690Z"
   },
   {
@@ -411,7 +411,23 @@
         "options": "온도: 아이스, 샷 (+2), 얼음 양: 보통"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-09-12T02:20:38.057Z"
+  },
+  {
+    "id": "order_1789655003053_o38abb2fj",
+    "orderNumber": 1,
+    "guestId": "guest_d0p3y8tilna2dr9vgufop2",
+    "nickname": "개곰",
+    "items": [
+      {
+        "menuId": "menu_1782797949365",
+        "name": "카페 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-09-17T14:23:23.051Z"
   }
 ]
