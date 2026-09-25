@@ -429,5 +429,37 @@
     ],
     "status": "picked_up",
     "createdAt": "2026-09-17T14:23:23.051Z"
+  },
+  {
+    "id": "order_1790230858151_8zs9hxw0g",
+    "orderNumber": 1,
+    "guestId": "guest_jkwm3ap5u1fmbcym3eh7r",
+    "nickname": "",
+    "items": [
+      {
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-09-24T06:20:58.150Z"
+  },
+  {
+    "id": "order_1790230875637_rbtsiu11d",
+    "orderNumber": 2,
+    "guestId": "guest_jkwm3ap5u1fmbcym3eh7r",
+    "nickname": "",
+    "items": [
+      {
+        "menuId": "menu_1782796750615",
+        "name": "에스프레소 마키아또",
+        "quantity": 1,
+        "options": "샷: 솔로"
+      }
+    ],
+    "status": "picked_up",
+    "createdAt": "2026-09-24T06:21:15.636Z"
   }
 ]
