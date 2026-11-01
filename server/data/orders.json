@@ -461,5 +461,53 @@
     ],
     "status": "picked_up",
     "createdAt": "2026-09-24T06:21:15.636Z"
+  },
+  {
+    "id": "order_1793446516392_o43kwwb68",
+    "orderNumber": 1,
+    "guestId": "guest_kviht3plvvhxb3ggap7i",
+    "nickname": "재구",
+    "items": [
+      {
+        "menuId": "menu_1784286909414",
+        "name": "엑설런트 라떼",
+        "quantity": 1,
+        "options": "샷 (+1), 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-10-31T11:35:16.390Z"
+  },
+  {
+    "id": "order_1793446622303_vpugg0lub",
+    "orderNumber": 2,
+    "guestId": "guest_i4t9qscviodjh1pyuh1pg",
+    "nickname": "재남",
+    "items": [
+      {
+        "menuId": "menu_1782819618573",
+        "name": "말차 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 당도 선택: 시럽 추가"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-10-31T11:37:02.303Z"
+  },
+  {
+    "id": "order_1793448807357_unuo97bes",
+    "orderNumber": 3,
+    "guestId": "guest_t7t9h9z5i845vrfnsdogd",
+    "nickname": "평범",
+    "items": [
+      {
+        "menuId": "menu_1782798930342",
+        "name": "카페 아메리카노",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 많이"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-10-31T12:13:27.357Z"
   }
 ]
