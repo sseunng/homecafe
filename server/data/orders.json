@@ -509,5 +509,21 @@
     ],
     "status": "completed",
     "createdAt": "2026-10-31T12:13:27.357Z"
+  },
+  {
+    "id": "order_1793508044910_n1gs0uqpu",
+    "orderNumber": 1,
+    "guestId": "guest_kviht3plvvhxb3ggap7i",
+    "nickname": "재구",
+    "items": [
+      {
+        "menuId": "menu_1782817763259",
+        "name": "자바 칩 프라푸치노",
+        "quantity": 1,
+        "options": "샷 (+1), 당도 선택: 기본, 휘핑 크림: 많이"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-11-01T04:40:44.872Z"
   }
 ]
