@@ -136,7 +136,7 @@
         "default": "기본"
       }
     ],
-    "available": false
+    "available": true
   },
   {
     "id": "menu_1782798161693",
@@ -1007,5 +1007,34 @@
       }
     ],
     "available": false
+  },
+  {
+    "id": "menu_1793962623338",
+    "name": "보늬밤 바닐라 아이스크림",
+    "description": "바닐라 아이스크림 위에 보늬밤 조림과 밤 시럽을 얹은 달콤한 아이스크림",
+    "category": "시그니쳐",
+    "image": "/uploads/menu-1793962622339-483349836.png",
+    "options": [
+      {
+        "id": "opt_1793962575506_yd0ne",
+        "name": "시럽",
+        "type": "select",
+        "choices": [
+          "보통",
+          "적게",
+          "많이"
+        ],
+        "default": "보통"
+      },
+      {
+        "id": "opt_1793962578775_0n6fb",
+        "name": "샷",
+        "type": "count",
+        "min": 1,
+        "max": 4,
+        "default": 1
+      }
+    ],
+    "available": true
   }
 ]
