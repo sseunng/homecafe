@@ -475,7 +475,7 @@
         "options": "샷 (+1), 당도 선택: 기본"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-10-31T11:35:16.390Z"
   },
   {
@@ -491,7 +491,7 @@
         "options": "온도: 아이스, 당도 선택: 시럽 추가"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-10-31T11:37:02.303Z"
   },
   {
@@ -507,7 +507,7 @@
         "options": "온도: 아이스, 샷 (+1), 얼음 양: 많이"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-10-31T12:13:27.357Z"
   },
   {
@@ -523,7 +523,23 @@
         "options": "샷 (+1), 당도 선택: 기본, 휘핑 크림: 많이"
       }
     ],
-    "status": "completed",
+    "status": "picked_up",
     "createdAt": "2026-11-01T04:40:44.872Z"
+  },
+  {
+    "id": "order_1794114097135_5522nltvr",
+    "orderNumber": 1,
+    "guestId": "guest_eyq47tz6dyllqd3e16r",
+    "nickname": "그몽",
+    "items": [
+      {
+        "menuId": "menu_1782798083246",
+        "name": "돌체 라떼",
+        "quantity": 1,
+        "options": "온도: 아이스, 샷 (+1), 얼음 양: 보통, 당도 선택: 기본"
+      }
+    ],
+    "status": "completed",
+    "createdAt": "2026-11-08T05:01:37.135Z"
   }
 ]
